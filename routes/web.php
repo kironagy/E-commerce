@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cart;
 use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\User;
@@ -29,6 +30,17 @@ Route::view('/Design', 'design')->name('design');
 Route::get('/single-product/{product}', fn(Product $product) => view('single-product',['product' => $product]))->name('single-product');
 
 Route::middleware('auth')->group(function(){
+    Route::post('/update-cart-quantity', function (Request $request) {
+        dd($request->id);
+        $cartItem = Cart::find($request->id);
+    
+        if ($cartItem) {
+            $cartItem->basket_quantity = $request->quantity;
+            $cartItem->update();
+        }
+    
+        return response()->json(['success' => true]);
+    })->name('UpdateCart');
     Route::view('/checkout', 'checkout')->name('checkout');
     Route::post('editProfile', function(Request $request) {
         $user = Auth::user();

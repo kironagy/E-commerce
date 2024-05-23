@@ -75,6 +75,9 @@
                         <form action="javascript:void(0)">
                             <div class="table-content table-responsive">
                                 <table class="table">
+                                    @if (!auth()->user()->carts->isEmpty())
+                                        
+                                    
                                     <thead>
                                         <tr>
                                             <th class="kenne-product-remove">remove</th>
@@ -85,64 +88,47 @@
                                             <th class="kenne-product-subtotal">Total</th>
                                         </tr>
                                     </thead>
+                                    @endif
                                     <tbody>
                                         @forelse (auth()->user()->carts as $cart)
                                             <tr>
                                                 <td class="kenne-product-remove"><a href="{{ route('cart.destroy', ['id' => $cart->basket_id]) }}"><i
                                                             class="fa fa-trash" title="Remove"></i></a></td>
-                                                <td class="kenne-product-thumbnail"><a href="javascript:void(0)"><img
+                                                <td class="kenne-product-thumbnail"><a href="{{ route('single-product', ['product'=> $cart->product]) }}"><img height="100"
                                                             src="{{ asset('allImages/'.$cart->product->cover[0]) }}"
                                                             alt="Uren's Cart Thumbnail"></a></td>
-                                                <td class="kenne-product-name"><a href="javascript:void(0)">{{ $cart->product->item_name }}</a></td>
+                                                <td class="kenne-product-name"><a href="{{ route('single-product', ['product'=> $cart->product]) }}">{{ $cart->product->item_name }}</a></td>
                                                 <td class="kenne-product-price"><span class="amount">{{ $currency }} {{ $cart->product->item_price }}</span>
                                                 </td>
                                                 <td class="quantity">
                                                     <label>Quantity</label>
                                                     <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" value="{{ $cart->quantity }}"
+                                                        <input id="quantity" class="cart-plus-minus-box" value="{{ $cart->basket_quantity }}"
                                                             type="text">
+                                                        <input id="cart_item_id" type="hidden" value="{{ $cart->basket_id }}"> <!-- Example cart item ID -->
                                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i>
                                                         </div>
                                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="product-subtotal"><span class="amount">{{ $currency }} {{ ($cart->product->item_price * $cart->quantity) }}</span></td>
+                                                <td class="product-subtotal"><span class="amount">{{ $currency }} {{ ($cart->product->item_price * $cart->basket_quantity) }}</span></td>
                                             </tr>
                                         @empty
-                                            <tr>
-                                                <td class="kenne-product-remove"><a href="javascript:void(0)"><i
-                                                            class="fa fa-trash" title="Remove"></i></a></td>
-                                                <td class="kenne-product-thumbnail"><a href="javascript:void(0)"><img
-                                                            src="assets/images/product/small-size/1.jpg"
-                                                            alt="Uren's Cart Thumbnail"></a></td>
-                                                <td class="kenne-product-name"><a href="javascript:void(0)">Juma rema
-                                                        pola</a></td>
-                                                <td class="kenne-product-price"><span class="amount">$46.80</span>
-                                                </td>
-                                                <td class="quantity">
-                                                    <label>Quantity</label>
-                                                    <div class="cart-plus-minus">
-                                                        <input class="cart-plus-minus-box" value="1"
-                                                            type="text">
-                                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i>
-                                                        </div>
-                                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="product-subtotal"><span class="amount">$46.80</span></td>
-                                            </tr>
+                                        <div class="d-flex justify-content-center">
+                                            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script><lottie-player src="https://lottie.host/179298d9-6a9d-4ef1-b990-54ff5c9ce37c/wYvvlRW4JC.json" background="##FFFFFF" speed="1" style="width: 450px; height: 450px" loop autoplay direction="1" mode="normal"></lottie-player>
+                                        </div>
                                         @endforelse
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            @if (!auth()->user()->carts->isEmpty())
+                                                            {{-- <div class="row">
                                 <div class="col-12">
                                     <div class="coupon-all">
                                         <div class="coupon">
-                                            <input id="coupon_code" class="input-text" name="coupon_code"
-                                                value="" placeholder="Coupon code" type="text">
+                                            <input id="coupon_code" class="input-text" name="coupon_code" value="{{ $cart->basket_quantity }}" placeholder="Coupon code" type="text">
+
                                             <input class="button" name="apply_coupon" value="Apply coupon"
                                                 type="submit">
                                         </div>
@@ -152,18 +138,29 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
+                            @endif
+
+                            @if (!auth()->user()->carts->isEmpty())
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
                                     <div class="cart-page-total">
                                         <h2>Cart totals</h2>
                                         <ul>
-                                            <li>Total <span>$118.60</span></li>
+                                            @php
+                                                $total = 0;
+                                                $all = auth()->user()->carts;
+                                                foreach ($all as $cart) {
+                                                    $total += $cart->product->item_price * $cart->basket_quantity;
+                                                }
+                                            @endphp
+                                            <li>Total <span>{{ $currency }} {{ $total }}</span></li>
                                         </ul>
-                                        <a href="javascript:void(0)">Proceed to checkout</a>
+                                        <a href="{{ route('checkout') }}">Proceed to checkout</a>
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </form>
                     </div>
                 </div>
@@ -280,6 +277,8 @@
 
     <!-- jQuery JS -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    
+    
     <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
