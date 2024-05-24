@@ -214,13 +214,13 @@ button,
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #000000;
+  background-color: #fff;
   z-index: 9999999999999;
 }
 
 .loading .middle {
   position: absolute;
-  top: 50%;
+  top: 70px;
   width: 100%;
 }
 
@@ -5161,7 +5161,7 @@ i,
 .home-slider .slide-item .slide-content {
   position: absolute;
   top: 50%;
-  left: auto;
+  left: 130px;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);

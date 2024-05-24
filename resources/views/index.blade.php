@@ -43,13 +43,12 @@
 
     <div class="main-wrapper">
         <!-- Begin Loading Area -->
-        <!--         <div class="loading">
+        <div class="loading">
             <div class="text-center middle">
-                <span class="loader">
-            <span class="loader-inner"></span>
-                </span>
+                <img class="rounded-3" src="{{ asset("assets/images/splash.gif") }}">
+                
             </div>
-        </div> -->
+        </div>
         <!-- Loading Area End Here -->
 
         <!-- Begin Main Header Area -->
@@ -82,8 +81,8 @@
             ]'>
                 <div class="slide-item bg-1 animation-style-01">
                     <div class="slider-progress"></div>
-                    <div class="container">
-                        <div class="slide-content">
+                    <div class="container" style="">
+                        <div class="slide-content ">
                             <span>Exclusive Offer -20% Off This Week</span>
                             <h2>Accessories <br> Explore Trending</h2>
                             <p class="short-desc">Aliquam error eos cumque aut repellat quasi accusantium inventore
@@ -188,8 +187,7 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="tab-content kenne-tab_content">
-                            <div
-                                class="kenne-element-carousel product-tab_slider slider-nav product-tab_arrow"
+                            <div class="kenne-element-carousel product-tab_slider slider-nav product-tab_arrow"
                                 data-slick-options='{
                                         "slidesToShow": 4,
                                         "slidesToScroll": 1,
@@ -227,7 +225,12 @@
                                                 {{-- <span class="sticker-2">Hot</span> --}}
                                                 <div class="add-actions">
                                                     <ul>
-
+                                                        <li class="quick-view-btn" data-bs-toggle="modal"
+                                                            data-bs-target="#modal_product{{ $item->id }}">
+                                                            <a href="javascript:void(0)" data-bs-toggle="tooltip"
+                                                                data-placement="right" title="Quick View"><i
+                                                                    class="ion-ios-search"></i></a>
+                                                        </li>
                                                         <li><a href="{{ route('wishlist.save', ['product' => $item->id]) }}"
                                                                 data-bs-toggle="tooltip" data-placement="right"
                                                                 title="Add To Wishlist"><i
@@ -414,7 +417,7 @@
             </div>
         </div>
         <!-- Product Tab Area End Here -->
-
+        @include('includes.footer')
         <!-- Begin Kenne's Modal Area -->
         @foreach (\App\Models\Category::all() as $category)
             @foreach ($category->items() as $item)
@@ -635,7 +638,7 @@
         @endforeach
 
         @foreach (\App\Models\Product::all() as $item)
-            <div class="modal fade modal-wrapper" id="modal_product}}">
+            <div class="modal fade modal-wrapper" id="modal_product{{ $item->id }}">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-body">

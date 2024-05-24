@@ -259,4 +259,4 @@ Swal.fire({
 <?php endif; ?>
 </body>
 
-</html><?php /**PATH C:\Users\Administrator\Desktop\newOne\resources\views/my-account.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\projects\New folder\newOne\resources\views/my-account.blade.php ENDPATH**/ ?>

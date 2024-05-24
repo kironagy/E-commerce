@@ -40,6 +40,7 @@
 
                                             <li><a href="{{ route('profile') }}">profile</a></li>
                                             <li><a href="{{ route('wishlist') }}">wishlist</a></li>
+                                            <li><a href="{{ route('wallet') }}">Wallet</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('design') }}">design</a></li>
@@ -133,6 +134,8 @@
                                                 <ul class="kenne-dropdown">
                                                     <li><a href="{{ route('profile') }}">profile</a></li>
                                                     <li><a href="">wishlist</a></li>
+                                                    <li><a href="{{ route('wallet') }}">Wallet</a></li>
+
 
                                                 </ul>
                                             </li>
@@ -199,7 +202,7 @@
                                 <a class="product-item_remove" href="javascript:void(0)"><i
                                         class="ion-android-close"></i></a>
                                 <div class="product-item_img">
-                                    <img src="/assets/images/product/1-1.jpg" alt="Kenne's Product Image">
+                                    <img src="{{ asset('allImages/' . $cart->product->cover[0]) }}" >
                                 </div>
                                 <div class="product-item_content">
                                     <a class="product-item_title"
@@ -267,6 +270,7 @@
                             </a>
 
                             <ul class="sub-menu">
+                                <li><a href="{{ route('wallet') }}">Wallet</a></li>
 
                                 <li>
                                     <a href="my-account.html">

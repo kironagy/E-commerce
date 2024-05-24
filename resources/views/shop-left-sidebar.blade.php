@@ -127,7 +127,7 @@
                             @endphp
                             @if ($items->isEmpty())
                                 <center>
-                                    <iframe width="300" height="300" src="https://lottie.host/embed/4adaa9ca-58b8-420c-8f87-03c8bb3e8c2a/RcqYGEU0P0.json"></iframe>
+                                    <iframe width="300" height="300" src="https://lottie.host/embed/f862d380-1202-42f1-970e-de64f668ed37/QSbMUK1jEH.json"></iframe>
                                 </center>
                             @endif
                             @foreach ($items as $item)

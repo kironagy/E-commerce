@@ -28,6 +28,7 @@ Route::view('AboutUs', 'about-us')->name('aboutUs');
 Route::view('Contact-Us', 'contact-us')->name('contactUs');
 Route::view('ShopNow/{id?}', 'shop-left-sidebar')->name('ShopLeft');
 Route::view('/Design', 'design')->name('design');
+Route::view('/Wallet', 'wallet')->name('wallet');
 Route::get('/single-product/{product}', fn(Product $product) => view('single-product',['product' => $product]))->name('single-product');
 
 Route::middleware('auth')->group(function(){

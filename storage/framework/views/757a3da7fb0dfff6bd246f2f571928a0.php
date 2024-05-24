@@ -206,4 +206,4 @@
 </body>
 
 </html>
-<?php /**PATH C:\Users\Administrator\Desktop\newOne\resources\views/cart.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\projects\New folder\newOne\resources\views/cart.blade.php ENDPATH**/ ?>
