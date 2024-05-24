@@ -70,77 +70,27 @@
                                 <h3>Billing Details</h3>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="country-select clearfix">
-                                            <label>Country <span class="required">*</span></label>
-                                            <select class="myniceselect nice-select wide">
-                                                <option data-display="Bangladesh">Bangladesh</option>
-                                                <option value="uk">London</option>
-                                                <option value="rou">Romania</option>
-                                                <option value="fr">French</option>
-                                                <option value="de">Germany</option>
-                                                <option value="aus">Australia</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         <div class="checkout-form-list">
-                                            <label>First Name <span class="required">*</span></label>
-                                            <input placeholder="" type="text">
+                                            <label>City <span class="required">*</span></label>
+                                            <input name="city" placeholder="City" type="text" id="city">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Last Name <span class="required">*</span></label>
-                                            <input placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Company Name</label>
-                                            <input placeholder="" type="text">
-                                        </div>
-                                    </div>
+
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label>Address <span class="required">*</span></label>
-                                            <input placeholder="Street address" type="text">
+                                            <input name="address" placeholder="Street address" type="text" id="adderss">
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Town / City <span class="required">*</span></label>
-                                            <input type="text">
-                                        </div>
-                                    </div>
+
+                                    
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
-                                            <label>State / County <span class="required">*</span></label>
-                                            <input placeholder="" type="text">
+                                            <label>Build Number <span class="required">*</span></label>
+                                            <input type="text" id="buildNum"  name="buildNum" >
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Postcode / Zip <span class="required">*</span></label>
-                                            <input placeholder="" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Email Address <span class="required">*</span></label>
-                                            <input placeholder="" type="email">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Phone <span class="required">*</span></label>
-                                            <input type="text">
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-12">
                                         <div class="checkout-form-list create-acc">
                                             <input id="cbox" type="checkbox">
@@ -158,89 +108,17 @@
                                 <div class="different-address">
                                     <div class="ship-different-title">
                                         <h3>
-                                            <label>Ship to a different address?</label>
+                                            <label>pay online ?</label>
                                             <input id="ship-box" type="checkbox">
                                         </h3>
                                     </div>
                                     <div id="ship-box-info" class="row">
-                                        <div class="col-md-12">
-                                            <div class="myniceselect country-select clearfix">
-                                                <label>Country <span class="required">*</span></label>
-                                                <select class="nice-select myniceselect wide">
-                                                    <option data-display="Bangladesh">Bangladesh</option>
-                                                    <option value="uk">London</option>
-                                                    <option value="rou">Romania</option>
-                                                    <option value="fr">French</option>
-                                                    <option value="de">Germany</option>
-                                                    <option value="aus">Australia</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>First Name <span class="required">*</span></label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Last Name <span class="required">*</span></label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Company Name</label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address <span class="required">*</span></label>
-                                                <input placeholder="Street address" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <input placeholder="Apartment, suite, unit etc. (optional)"
-                                                    type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Town / City <span class="required">*</span></label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>State / County <span class="required">*</span></label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Postcode / Zip <span class="required">*</span></label>
-                                                <input placeholder="" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Email Address <span class="required">*</span></label>
-                                                <input placeholder="" type="email">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Phone <span class="required">*</span></label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
+                                        <div>fdgdfgdfgdf</div>
                                     </div>
                                     <div class="order-notes">
                                         <div class="checkout-form-list checkout-form-list-2">
                                             <label>Order Notes</label>
-                                            <textarea id="checkout-mess" cols="30" rows="10"
+                                            <textarea name="notes" id="checkout-mess" cols="30" rows="10"
                                                 placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                         </div>
                                     </div>
@@ -261,8 +139,6 @@
                                     </thead>
                                     <tbody>
                                         <?php $__currentLoopData = auth()->user()->carts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cart): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php echo e(dd($cart)); ?>
-
                                             <tr class="cart_item">
                                                 <td class="cart-product-name"> Vestibulum suscipit<strong
                                                         class="product-quantity">
@@ -368,100 +244,8 @@
         <!-- Brand Area End Here -->
 
         <!-- Begin Kenne's Footer Area -->
-        <div class="kenne-footer_area bg-smoke_color">
-            <div class="footer-top_area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <div class="newsletter-area">
-                                <div class="newsletter-logo">
-                                    <a href="javascript:void(0)">
-                                        <img src="assets/images/footer/logo/1.png" alt="Logo">
-                                    </a>
-                                </div>
-                                <p class="short-desc">Subscribe to our newsleter, Enter your emil address</p>
-                                <div class="newsletter-form_wrap">
-                                    <form
-                                        action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef"
-                                        method="post" id="mc-embedded-subscribe-form"
-                                        name="mc-embedded-subscribe-form" class="newsletters-form validate"
-                                        target="_blank" novalidate>
-                                        <div id="mc_embed_signup_scroll">
-                                            <div id="mc-form" class="mc-form subscribe-form">
-                                                <input id="mc-email" class="newsletter-input" type="email"
-                                                    autocomplete="off" placeholder="Enter email address" />
-                                                <button class="newsletter-btn" id="mc-submit"><i
-                                                        class="ion-android-mail"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 offset-lg-1">
-                            <div class="row footer-widgets_wrap">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="footer-widgets_title">
-                                        <h4>Shopping</h4>
-                                    </div>
-                                    <div class="footer-widgets">
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Product</a></li>
-                                            <li><a href="javascript:void(0)">My Cart</a></li>
-                                            <li><a href="javascript:void(0)">Wishlist</a></li>
-                                            <li><a href="javascript:void(0)">Cart</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="footer-widgets_title">
-                                        <h4>Account</h4>
-                                    </div>
-                                    <div class="footer-widgets">
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Login</a></li>
-                                            <li><a href="javascript:void(0)">Register</a></li>
-                                            <li><a href="javascript:void(0)">Help</a></li>
-                                            <li><a href="javascript:void(0)">Support</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="footer-widgets_title">
-                                        <h4>Categories</h4>
-                                    </div>
-                                    <div class="footer-widgets">
-                                        <ul>
-                                            <li><a href="javascript:void(0)">Men</a></li>
-                                            <li><a href="javascript:void(0)">Women</a></li>
-                                            <li><a href="javascript:void(0)">Jeans</a></li>
-                                            <li><a href="javascript:void(0)">Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom_area">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="copyright">
-                                <span>Copyright &copy; 2023 <a href="javascript:void(0)">Kenne.</a> All rights
-                                    reserved.</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="payment">
-                                <img src="assets/images/footer/payment/1.png" alt="Kenne's Payment Method">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php echo $__env->make('includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
         <!-- Kenne's Footer Area End Here -->
         <!-- Scroll To Top Start -->
         <a class="scroll-to-top" href=""><i class="ion-chevron-up"></i></a>

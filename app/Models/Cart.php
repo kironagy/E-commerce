@@ -22,7 +22,8 @@ class Cart extends Model
         'address',
         'buildNum',
         'notes',
-        'basket_time'
+        'basket_time',
+        'item_price',
     ];
 
     public function user() {

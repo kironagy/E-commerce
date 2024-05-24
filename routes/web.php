@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Auction;
 use App\Models\Cart;
 use App\Models\Favorite;
 use App\Models\Product;
@@ -30,6 +31,13 @@ Route::view('/Design', 'design')->name('design');
 Route::get('/single-product/{product}', fn(Product $product) => view('single-product',['product' => $product]))->name('single-product');
 
 Route::middleware('auth')->group(function(){
+    Route::post('/Order/checkout',function(Request $request) {
+        $user = Auth::user();
+        $cart = Cart::where('user_id',$user->id)->get();
+        foreach($cart as $item){
+            
+        }
+    });
     Route::post('/update-cart-quantity', function (Request $request) {
         dd($request->id);
         $cartItem = Cart::find($request->id);
@@ -41,6 +49,29 @@ Route::middleware('auth')->group(function(){
     
         return response()->json(['success' => true]);
     })->name('UpdateCart');
+
+    
+    Route::post('/add-bid', function(Request $request) {
+        $request->validate([
+            'bid_amount' => 'required|numeric|min:0',
+        ]);
+    
+        $bidAmount = $request->input('bid_amount');
+        $auctionId = $request->input('id');
+        $auction = Auction::find($auctionId);
+    
+        if ($bidAmount > $auction->endPrice) {
+            $auction->endPrice = $bidAmount;
+            $auction->update();
+    
+            return redirect()->back()->with('success', 'Bid placed successfully');
+        } else {
+            return redirect()->back()->withErrors('Bid must be higher than the current end price');
+        }
+    })->name('addBid');
+
+
+
     Route::view('/checkout', 'checkout')->name('checkout');
     Route::post('editProfile', function(Request $request) {
         $user = Auth::user();

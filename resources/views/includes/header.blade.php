@@ -366,12 +366,6 @@
                     <img src="/assets/images/logo.png" style="width: 100px;" alt="Munoz's Offcanvas Logo">
                 </a>
             </div>
-            <div class="short-desc">
-                <p>We are a team of designers and developers that create high quality HTML Template &
-                    Woocommerce,
-                    Shopify Themes.
-                </p>
-            </div>
 
             <div class="offcanvas-component">
                 <span class="offcanvas-component_title">Language</span>

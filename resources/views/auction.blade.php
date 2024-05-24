@@ -29,52 +29,160 @@
 <style>
     html,
     body {
-      position: relative;
-      height: 100%;
+        position: relative;
+        height: 100%;
     }
 
     body {
-      background: #eee;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
-      margin: 0;
-      padding: 0;
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
     }
 
     .swiper {
-      width: 100%;
-      height: 100%;
+        width: 100%;
+        height: 100%;
     }
 
     .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .swiper-slide {
-      width: 60%;
+        width: 60%;
     }
 
     .swiper-slide:nth-child(2n) {
-      width: 40%;
+        width: 40%;
     }
 
     .swiper-slide:nth-child(3n) {
-      width: 20%;
+        width: 20%;
     }
-  </style>
+
+
+    .container_zipy {
+        background-color: white;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        height: 90vh;
+    }
+
+
+    .status-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .status-icon {
+        width: 20px;
+        height: 20px;
+        background-color: black;
+        border-radius: 50%;
+    }
+
+    .time {
+        margin-left: 10px;
+    }
+
+    .status-icons {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+    .status-icons div {
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+    }
+
+    .settings-icon {
+        background-color: gray;
+    }
+
+    .battery-icon {
+        background-color: gray;
+    }
+
+    .back-button {
+        font-size: 24px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .product-image img {
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 40px;
+    }
+
+    .auction-details {
+        background-color: #efefef;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .bid-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .bid-info div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bid-button {
+        width: 100%;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .details {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .details h2 {
+        margin: 0 0 10px 0;
+    }
+
+    .details p {
+        margin: 5px 0;
+    }
+
+    .details span {
+        font-weight: bold;
+    }
+</style>
 
 <body class="template-color-1">
 
@@ -93,68 +201,159 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     @php
-                    use Carbon\Carbon;
-                
-                    $currentDateTime = Carbon::now();
-                    $auctions = App\Models\Auction::where('TimeEnd', '>', $currentDateTime)->get();
-                @endphp
-                
-                @foreach ($auctions as $auction)
-                    <div class="swiper-slide rounded-3">
-                        <div class="card_aucation rounded-3 w-100">
-                            <div class="content p-2">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <img class="rounded-3 mt-3" src="/allImages/{{ $auction->img }}" alt="">
-                                </div>
-                                <div class="d-flex justify-content-center mt-4 align-items-center text">
-                                    <div class="d-flex flex-column me-3">
-                                        <div class="fs-sm">Start bid</div>
-                                        <div class="fw-simebold">{{ $auction->startPrice }}{{ $currency }}</div>
+                        use Carbon\Carbon;
+
+                        $currentDateTime = Carbon::now();
+                        $auctions = App\Models\Auction::where('TimeEnd', '>', $currentDateTime)->get();
+                    @endphp
+
+                    @foreach ($auctions as $auction)
+                        <div class="swiper-slide rounded-3">
+                            <div class="card_aucation rounded-3 w-100">
+                                <div class="content p-2">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <img class="rounded-3 mt-3" style="width:300px; height:200px" src="/allImages/{{ $auction->img }}"   data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ $auction->id }}"alt="">
                                     </div>
-                                    <div class="d-flex flex-column">
-                                        <div class="fs-sm">Auction ends in</div>
-                                        <div class="fw-simebold countdown" data-end-time="{{ $auction->TimeEnd }}"></div>
+                                    <div class="d-flex justify-content-center mt-4 align-items-center text">
+                                        <div class="d-flex flex-column me-3">
+                                            <div class="fs-sm">Start bid</div>
+                                            <div class="fw-simebold">{{ $auction->endPrice ? $auction->endPrice : $auction->startPrice }}{{ $currency }}</div>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="fs-sm">Auction ends in</div>
+                                            <div class="fw-simebold countdown" data-end-time="{{ $auction->TimeEnd }}">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-                
+                    @endforeach
+
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- Button trigger modal -->
+    @foreach ($auctions as $auction)
+    <div class="modal fade modal-wrapper "  data-bs-focus="false"id="exampleModalCenter{{ $auction->id }}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-inner-area sp-area row">
+                        <div class="container_zipy">
+                            <main>
+                                <div class="product-image" style="display: flex; justify-content: center;">
+                                    <img style="width: 300px;"
+                                        src="/allImages/{{ $auction->img }}"
+                                        alt="Rolex Watch">
+                                </div>
+                                <div class="auction-details">
+                                    <div class="bid-info">
+                                        <div class="highest-bid">
+                                            <span>highest bid</span>
+                                            <span>{{ $auction->endPrice ? $auction->endPrice : $auction->startPrice }} L.E</span>
+                                        </div>
+                                        <div class="auction-ends">
+                                            <span>auction ends in</span>
+                                            <div class="fw-simebold countdown" data-end-time="{{ $auction->TimeEnd }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="bid-button" onclick="Bid({{$auction->id}})">Bid Now</button>
+                                    <div class="details">
+                                        <h2>Details</h2>
+                                        <p><span>Owned :</span> {{ $auction->owned }}</p>
+                                        <p><span>Brand :</span> {{ $auction->Barnd }}</p>
+                                        <p><span>sence :</span> {{ $auction->sience }}</p>
+                                        <p><span>Country :</span> {{ $auction->country }}</p>
+                                    </div>
+                                </div>
+                            </main>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function Bid(id) {
+
+            Swal.fire({
+    title: "Add the bid",
+    html: `<form id="bidForm" method="POST" action="{{ route('addBid') }}">@csrf<input type="text" name="bid_amount" class="swal2-input" required><input type="hidden" name="id" value='${id}' class="swal2-input" required><button class="swal2-confirm swal2-styled mt-3  " type="submit">Submit Bid</button></form>`,
+    showConfirmButton: false,
+    showClass: {
+        popup: 'animate__animated animate__fadeInUp animate__faster',
+    },
+    hideClass: {
+        popup: 'animate__animated animate__fadeOutDown animate__faster',
+    }
+});
+
+            }
+    </script>
+    @if ($errors->any())
+    <script>
+        var errorMessages = [];
+
+        @foreach ($errors->all() as $error)
+            errorMessages.push("{{ $error }}");
+        @endforeach
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: errorMessages.join('<br>')
+        });
+    </script>
+@endif
+@if (session('success'))
+    <script>
+        // Initialize SweetAlert with success message
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}'
+        });
+    </script>
+@endif
     <!-- end of auction cards -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    function updateCountdown() {
-        const countdownElements = document.querySelectorAll('.countdown');
-        countdownElements.forEach(function (element) {
-            const endTime = new Date(element.getAttribute('data-end-time')).getTime();
-            const now = new Date().getTime();
-            const distance = endTime - now;
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateCountdown() {
+                const countdownElements = document.querySelectorAll('.countdown');
+                countdownElements.forEach(function(element) {
+                    const endTime = new Date(element.getAttribute('data-end-time')).getTime();
+                    const now = new Date().getTime();
+                    const distance = endTime - now;
 
-            if (distance < 0) {
-                element.innerHTML = 'Auction ended';
-            } else {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (distance < 0) {
+                        element.innerHTML = 'Auction ended';
+                    } else {
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                element.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                        element.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                    }
+                });
             }
-        });
-    }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-});
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        });
     </script>
 </body>
-<!-- jQuery JS -->
+
 <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
 <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
 <!-- Modernizer JS -->

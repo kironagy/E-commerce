@@ -241,11 +241,11 @@
             </div>
         </button>
     </div>
-<div class="container">
+    <div class="container">
 
-    
-    <div id="container" class="resize-drag">
-    </div>
+
+        <div id="container" class="resize-drag">
+        </div>
         <img id="image" src="">
     </div>
     <div class="d-flex justify-content-center flex-column flex-lg-row ">

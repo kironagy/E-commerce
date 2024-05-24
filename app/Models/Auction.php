@@ -12,13 +12,16 @@ class Auction extends Model
     public $table = 'auctionsitem';
     public $timestamps = false;
     protected $fillable = [
-        'startPrice',
-        'Barnd',
-        'sience', 
-        'country',
-        'owned',
+        'titel',
         'img',
+        'startPrice',
+        'endPrice',
         'TimeEnd',
+        'owned', 
+        'barnd',
+        'sience',
+        'country',
+        'material',
     ];
     public function toArray()
     {
