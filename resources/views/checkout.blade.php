@@ -65,7 +65,7 @@
 
                 <div class="row">
                     <div class="col-lg-6 col-12">
-                        <form action="javascript:void(0)">
+                        <form id="formSubmit" action="{{ route('checkoutCheck') }}" method="post">@csrf
                             <div class="checkbox-form">
                                 <h3>Billing Details</h3>
                                 <div class="row">
@@ -79,10 +79,11 @@
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label>Address <span class="required">*</span></label>
-                                            <input name="address" placeholder="Street address" type="text" id="adderss">
+                                            <input name="address" placeholder="Street address" type="text"
+                                                id="adderss">
                                         </div>
                                     </div>
-{{-- 
+                                    {{-- 
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label>Postcode / Zip <span class="required">*</span></label>
@@ -98,7 +99,14 @@
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label>Build Number <span class="required">*</span></label>
-                                            <input type="text" id="buildNum"  name="buildNum" >
+                                            <input type="text" id="buildNum" name="buildNum">
+                                        </div>
+                                    </div>
+                                    <div class="order-notes">
+                                        <div class="checkout-form-list checkout-form-list-2">
+                                            <label>Order Notes</label>
+                                            <textarea name="notes" id="checkout-mess" cols="30" rows="10"
+                                                placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                         </div>
                                     </div>
                                     {{-- <div class="col-md-6">
@@ -109,10 +117,7 @@
                                             </div>
                                     </div> --}}
                                     <div class="col-md-12">
-                                        <div class="checkout-form-list create-acc">
-                                            <input id="cbox" type="checkbox">
-                                            <label>Create an account?</label>
-                                        </div>
+
                                         <div id="cbox-info" class="checkout-form-list create-account">
                                             <p>Create an account by entering the information below. If you are a
                                                 returning
@@ -122,26 +127,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="different-address">
-                                    <div class="ship-different-title">
-                                        <h3>
-                                            <label>pay online ?</label>
-                                            <input id="ship-box" type="checkbox">
-                                        </h3>
-                                    </div>
-                                    <div id="ship-box-info" class="row">
-                                        <div>fdgdfgdfgdf</div>
-                                    </div>
-                                    <div class="order-notes">
-                                        <div class="checkout-form-list checkout-form-list-2">
-                                            <label>Order Notes</label>
-                                            <textarea name="notes" id="checkout-mess" cols="30" rows="10"
-                                                placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </form>
+                        <div class="different-address">
+                            <div class="ship-different-title">
+                                <h3>
+                                    <label>pay online ?</label>
+                                    <input id="ship-box" type="checkbox">
+                                </h3>
+                            </div>
+                            <div id="ship-box-info" class="row">
+                                <form id="onlineForm" action="{{ route('credit') }}" method="post">@csrf
+                                    <div id="payBut">Pay</div>
+                                </form>
+
+                            </div>
+
+                        </div>
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="your-order">
@@ -155,12 +157,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $total = 0;
+                                        @endphp
                                         @foreach (auth()->user()->carts as $cart)
+                                            @php
+                                                $total += $cart->product->item_price * $cart->basket_quantity;
+                                            @endphp
                                             <tr class="cart_item">
-                                                <td class="cart-product-name"> Vestibulum suscipit<strong
+                                                <td class="cart-product-name">{{ $cart->product->item_name }}<strong
                                                         class="product-quantity">
-                                                        × 1</strong></td>
-                                                <td class="cart-product-total"><span class="amount">£165.00</span>
+                                                        × {{ $cart->basket_quantity }}</strong></td>
+                                                <td class="cart-product-total"><span
+                                                        class="amount">{{ $currency }}{{ $cart->product->item_price * $cart->basket_quantity }}</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -168,11 +177,30 @@
                                     <tfoot>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">£215.00</span></td>
+                                            <td><span class="amount">{{ $currency }}{{ $total }}</span></td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                <div class="coupon-all">
+
+                                                    <div class="coupon d-flex align-items-center">
+                                                        <input id="coupon_code" class="input-text" style="width:200px;" name="coupon_code"
+                                                            value="{{ $cart->basket_quantity }}"
+                                                            placeholder="Coupon code" type="text">
+
+                                                        <input class="button" name="apply_coupon"
+                                                            value="Apply coupon" type="submit">
+                                                    </div>
+                                                </div>
+
+                                            </td>
                                         </tr>
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span class="amount">£215.00</span></strong></td>
+                                            <td><strong><span
+                                                        class="amount">{{ $currency }}{{ $total }}</span></strong>
+                                            </td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -202,15 +230,7 @@
                                             </div>
                                         </div>
                                         <div class="card">
-                                            <div class="card-header" id="#payment-2">
-                                                <h5 class="panel-title">
-                                                    <a href="javascript:void(0)" class="collapsed"
-                                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                                        aria-expanded="false" aria-controls="collapseTwo">
-                                                        Cheque Payment
-                                                    </a>
-                                                </h5>
-                                            </div>
+
                                             <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
                                                 <div class="card-body">
                                                     <p>Make your payment directly into our bank account. Please use your
@@ -223,15 +243,6 @@
                                             </div>
                                         </div>
                                         <div class="card">
-                                            <div class="card-header" id="#payment-3">
-                                                <h5 class="panel-title">
-                                                    <a href="javascript:void(0)" class="collapsed"
-                                                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                                        aria-expanded="false" aria-controls="collapseThree">
-                                                        PayPal
-                                                    </a>
-                                                </h5>
-                                            </div>
                                             <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
                                                 <div class="card-body">
                                                     <p>Make your payment directly into our bank account. Please use your
@@ -244,7 +255,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="order-button-payment">
+                                    <div id="formSubmitButton" class="order-button-payment">
                                         <input value="Place order" type="submit">
                                     </div>
                                 </div>
@@ -272,7 +283,41 @@
 
     <!-- JS
 ============================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    @if ($errors->any())
+        <script>
+            var errorMessages = [];
+
+            @foreach ($errors->all() as $error)
+                errorMessages.push("{{ $error }}");
+            @endforeach
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errorMessages.join('<br>')
+            });
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            // Initialize SweetAlert with success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endif
+    <script>
+        formSubmitButton.onclick = function() {
+            formSubmit.submit();
+        }
+        payBut.onclick = function() {
+            document.getElementById('onlineForm').submit()
+        }
+    </script>
     <!-- jQuery JS -->
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>

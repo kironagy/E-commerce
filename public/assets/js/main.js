@@ -219,24 +219,39 @@
 	/*----------------------------------------*/
 	/*  Cart Plus Minus Button
 	/*----------------------------------------*/
+	// Append increment/decrement buttons to the cart-plus-minus element
 	$('.cart-plus-minus').append(
 		'<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>'
 	);
-	$('.qtybutton').on('click', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 1) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 1;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-	});
+
+	// Handle button clicks
+    $(document).ready(function() {
+        // Use event delegation to attach event handlers to dynamically created elements
+        $(document).on('click', '.qtybutton', function() {
+            var $button = $(this);
+            var $input = $button.closest('.cart-plus-minus').find('.cart-plus-minus-box');
+            var oldValue = parseFloat($input.val());
+
+            console.log('Old value:', oldValue);
+
+            var newVal;
+            // Check if the button has the class 'inc'
+            if ($button.hasClass('inc')) {
+                newVal = oldValue + 1;
+            } else {
+                newVal = oldValue > 1 ? oldValue - 1 : 1;
+            }
+
+            console.log('New value:', newVal);
+
+            // Update the input element with the new value
+            $input.val(newVal);
+
+            // Uncomment the form submission code if needed
+                $button.closest('form').submit();
+        });
+    });
+	
 
 	/*----------------------------------------*/
 	/* Toggle Function Active

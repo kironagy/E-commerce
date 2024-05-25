@@ -199,7 +199,8 @@
                     @if (isset(auth()->user()->carts))
                         @foreach (auth()->user()->carts as $cart)
                             <li class="minicart-product">
-                                <a class="product-item_remove" href="javascript:void(0)"><i
+                                <a class="product-item_remove" href="{{ route('cart.destroy' 
+                                , ['id'=> $cart->basket_id]) }}"><i
                                         class="ion-android-close"></i></a>
                                 <div class="product-item_img">
                                     <img src="{{ asset('allImages/' . $cart->product->cover[0]) }}" >

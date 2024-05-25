@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    public $table = 'orders';
+    protected $primaryKey = 'basket_id';
+
+    public $table = 'basket';
     protected $fillable = [
-        'promoCode_id',
-        'user_id',
-        'product_id',
-        'full_name',
-        'address',
+        'city',
+        'adderss',
         'notes',
-        'total',
-        'status',
+        'item_price',
+        'basket_orderstatus',
     ];
     public function product()
     {

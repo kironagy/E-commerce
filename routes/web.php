@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AllController;
+use App\Http\Controllers\ApiController;
 use App\Models\Auction;
 use App\Models\Cart;
 use App\Models\Favorite;
@@ -32,23 +34,40 @@ Route::view('/Wallet', 'wallet')->name('wallet');
 Route::get('/single-product/{product}', fn(Product $product) => view('single-product',['product' => $product]))->name('single-product');
 
 Route::middleware('auth')->group(function(){
-    Route::post('/Order/checkout',function(Request $request) {
-        $user = Auth::user();
-        $cart = Cart::where('user_id',$user->id)->get();
-        foreach($cart as $item){
-            
-        }
-    });
-    Route::post('/update-cart-quantity', function (Request $request) {
-        dd($request->id);
-        $cartItem = Cart::find($request->id);
     
+    Route::post('/credit', [AllController::class , 'credit'])->name('credit');
+    Route::get('/callback', [AllController::class , 'callback'])->name('callback');
+
+    Route::post('/Order/checkout',function(Request $request) {
+        $user = auth()->user();
+        $cart = Cart::where('basket_userid',$user->id)->get();
+        $request->validate([
+            'city' => 'required',
+            'address'=> 'required',
+            'buildNum' => 'required',
+            'notes' => 'required',
+        ]);
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item->product->item_price;
+            $item->city = $request->city;
+            $item->adderss = $request->address;
+            $item->buildNum = $request->buildNum;
+            $item->notes = $request->notes;
+            $item->item_price += $total;
+            $item->update();
+        }
+        return redirect()->back()->with('success', 'Order Place Successfully');
+    })->name('checkoutCheck');
+    Route::post('/update-cart-quantity', function (Request $request) {
+        $cartItem = Cart::find($request->cart_item_id);
+        
         if ($cartItem) {
             $cartItem->basket_quantity = $request->quantity;
             $cartItem->update();
         }
     
-        return response()->json(['success' => true]);
+        return redirect()->back();
     })->name('UpdateCart');
 
     

@@ -90,7 +90,7 @@
                                                 <td class="kenne-product_remove"><a href="{{ route('wishlist.destroy', ['id' => $favorite->favorite_id]) }}">
                                                     <i class="fa fa-trash"
                                                     title="Remove"></i></a></td>
-                                                <td class="kenne-product-thumbnail"><a href="javascript:void(0)"><img src="{{ asset('allImages/'.$favorite->product->cover[0]) }}" alt="Kenne's Wishlist Thumbnail"></a>
+                                                <td class="kenne-product-thumbnail"><a href="javascript:void(0)"><img height="200" src="{{ asset('allImages/'.$favorite->product->cover[0]) }}" alt="Kenne's Wishlist Thumbnail"></a>
                                                 </td>
                                                 <td class="kenne-product-name"><a href="javascript:void(0)">{{ $favorite->product->item_name }}</a>
                                                 </td>
@@ -98,7 +98,7 @@
                                                 <td class="kenne-product-stock-status"><span class="{{ ($favorite->product->quantity == 7 ? 'stock' : ($favorite->product->quantity < 7 ? 'out-stock' : 'in-stock'))   }}">
                                                     {{ ($favorite->product->quantity == 7 ? 'stock' : ($favorite->product->quantity < 7 ? 'out of stock' : 'in stock'))   }}
                                                 </span></td>
-                                                <td class="kenne-cart_btn"><a href="javascript:void(0)">add to cart</a></td>
+                                                <td class="kenne-cart_btn"><a href="{{ route('cart.save', ['product' => $favorite->product->id]) }}">add to cart</a></td>
                                             </tr>
                                         @empty
                                             <tr>

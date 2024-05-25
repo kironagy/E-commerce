@@ -147,7 +147,9 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="text-center fs-4 fw-bold my-3"> 40</div>
+                                <div class="text-center fs-4 fw-bold my-3">
+                                    {{ App\Models\User::where('user_InviteCode', auth()->user()->user_Referralcode)->count() }}
+                                </div>
                                 <div class="text-center fs-6 fw-bold text-capitalize">all referals users</div>
                             </div>
                         </div>
@@ -164,7 +166,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="text-center fs-4 fw-bold my-3"> 40</div>
+                                <div class="text-center fs-4 fw-bold my-3"> 1</div>
                                 <div class="text-center fs-6 fw-bold text-capitalize">referals 5% users</div>
                             </div>
                         </div>
@@ -182,7 +184,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="text-center fs-4 fw-bold my-3"> 40</div>
+                                <div class="text-center fs-4 fw-bold my-3"> 1</div>
                                 <div class="text-center fs-6 fw-bold text-capitalize">referals 10% users</div>
                             </div>
                         </div>
@@ -193,7 +195,7 @@
 
                     <div class="balance-card">
                         <p class="total-balance">total balnce</p>
-                        <p class="balance my-3">400.0 L.E</p>
+                        <p class="balance my-3">{{ auth()->user()->user_wallet }} {{ $currency }}</p>
                         <button class="withdraw-button">withdraw</button>
                     </div>
                 </div>
@@ -226,26 +228,30 @@
                                         <th scope="col">percentage</th>
                                     </tr>
                                 </thead>
+                                @php
+                                    $all = App\Models\User::where(
+                                        'user_InviteCode',
+                                        auth()->user()->user_Referralcode,
+                                    )->get();
+                                @endphp
+                                @if (!$all->isEmpty())
+                                    
+                               
                                 <tbody>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td>1334</td>
-                                        <td>ahmed</td>
+                                        <td>{{ $all[0]->id }}</td>
+                                        <td>{{ $all[0]->user_name }}</td>
                                         <td>10%</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
-                                        <td>2334</td>
-                                        <td>sayed</td>
-                                        <td>10%</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>3344</td>
-                                        <td>crow</td>
+                                        <th scope="row">1</th>
+                                        <td>{{ $all[1]->id }}</td>
+                                        <td>{{ $all[1]->user_name }}</td>
                                         <td>5%</td>
                                     </tr>
                                 </tbody>
+                                 @endif
                             </table>
                         </div>
 
@@ -264,31 +270,34 @@
                                         <th scope="col" class="text-nowrap">date</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                @php
+                                $usersOrders = App\Models\User::where('user_InviteCode', auth()->user()->user_Referralcode)
+                                    ->whereHas('carts', function ($query) {
+                                        $query->where('item_price', '!=', 0);
+                                    })
+                                    ->orderBy('id', 'asc')
+                                    ->take(2)
+                                    ->get();
+                            @endphp
+                            <tbody>
+                                @foreach ($usersOrders as $user)
+                                @foreach ($user->carts as $cart)
                                     <tr>
-                                        <th class="text-nowrap" scope="row">1</th>
-                                        <td class="text-nowrap">1334</td>
+                                    
+                                        <th class="text-nowrap" scope="row">{{ $cart->basket_id }}</th>
                                         <td class="text-nowrap">ahmed</td>
                                         <td class="text-nowrap">10%</td>
-                                        <td class="text-nowrap">1334</td>
-                                        <td class="text-nowrap">13-4-2022</td>
+                                        
+                                        @if ($cart->product->item_price != 0)
+                                            <td class="text-nowrap">{{ $cart->product->item_price }}</td> 
+                                        @endif
+                                    
+                                        <td class="text-nowrap">{{ $cart->basket_time }}</td>
                                     </tr>
-                                    <tr>
-                                        <th class="text-nowrap" scope="row">2</th>
-                                        <td class="text-nowrap">2334</td>
-                                        <td class="text-nowrap">sayed</td>
-                                        <td class="text-nowrap">10%</td>
-                                        <td class="text-nowrap">1334</td>
-                                        <td class="text-nowrap">13-4-2022</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-nowrap" scope="row">3</th>
-                                        <td class="text-nowrap">3344</td>
-                                        <td class="text-nowrap">crow</td>
-                                        <td class="text-nowrap">5%</td>
-                                        <td class="text-nowrap">1334</td>
-                                        <td class="text-nowrap">13-4-2022</td>
-                                    </tr>
+                                @endforeach
+                                @endforeach
+                            </tbody>
+                            
                                 </tbody>
                             </table>
                         </div>

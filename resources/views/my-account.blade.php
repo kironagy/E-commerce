@@ -93,10 +93,9 @@
                             <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
                                 <div class="tab-pane fade show active" id="account-dashboard" role="tabpanel" aria-labelledby="account-dashboard-tab">
                                     <div class="myaccount-dashboard">
-                                        <p>Hello <b>{{ auth()->user()->user_name }}</b> (not {{ auth()->user()->user_name }}? <a href="{{ route('logout') }}">Sign
-                                                out</a>)</p>
+                                        <p>Hello <b>{{ auth()->user()->user_name }}</b> </p>
                                         <div class="d-flex align-items-center">
-                                        <div> your refler code is </div> <div class="fs-4 fw-bold"> refler code </div>
+                                        <div> your refler code is </div> <div class="fs-4 fw-bold">  {{ auth()->user()->user_Referralcode }} </div>
                                         </div>
                                         <p>From your account dashboard you can view your recent orders, manage your shipping and
                                             billing addresses and <a href="javascript:void(0)">edit your password and account
@@ -116,7 +115,7 @@
                                                         <th>TOTAL</th>
                                                     </tr>
                                                     @php
-                                                        $orders = App\Models\Order::where('user_id',auth()->user()->id)->get();
+                                                        $orders = App\Models\Order::where('basket_userid',auth()->user()->id)->get();
                                                     @endphp
                                                     @foreach ($orders as $order)
                                                     <tr>

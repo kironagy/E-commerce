@@ -25,31 +25,25 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('promoCode_id')
-                    ->relationship('promoCode', 'code')
-                    ->disabled(),
-                Forms\Components\Select::make('product_id')
-                    ->required()
-                    ->disabled()
-                    ->relationship('product', 'title'),
-                Forms\Components\TextInput::make('total')
-                    ->required()
-                    ->disabled()
-                    ->numeric(),
-                Forms\Components\TextInput::make('full_name')
+                Forms\Components\TextInput::make('city')
                     ->disabled()
                     ->required(),
-                Forms\Components\TextInput::make('address')
+                Forms\Components\TextInput::make('adderss')
                     ->disabled()
                     ->required(),
                 Forms\Components\TextInput::make('notes')
                     ->disabled()
                     ->required(),
-                Forms\Components\Select::make('status')
+                Forms\Components\TextInput::make('item_price')
+                    ->disabled()
+                    ->required(),
+                Forms\Components\Select::make('basket_orderstatus')
+                    ->label('Status')
                     ->required()
                     ->options([
-                        'pending'=> 'Pending',
+                        'Pending'=> 'Pending',
                         'under_shipping'=> 'Under Shipping',
+                        'work at order' => 'work at order',
                         'delivered' => 'Delivered',
                     ]),
 
@@ -61,7 +55,11 @@ class OrderResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('status')
+                Tables\Columns\TextColumn::make('adderss')
+                ->label('Address')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('basket_orderstatus')
+                ->label('Status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -92,7 +90,16 @@ class OrderResource extends Resource
             //
         ];
     }
-
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+                     ->where('city', '!=', null)
+                     ->where('adderss', '!=', null)
+                     ->where('notes', '!=', null)
+                     ->where('item_price', '!=', null)
+                     ->where('basket_orderstatus', '!=', null);
+    }
+    
     public static function getPages(): array
     {
         return [
