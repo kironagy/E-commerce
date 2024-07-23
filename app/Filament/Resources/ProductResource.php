@@ -3,23 +3,23 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
-use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
+    protected static ?string $navigationGroup = 'Products Area';
+
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+
     protected static ?int $navigationSort = 5;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -28,7 +28,6 @@ class ProductResource extends Resource
                 Forms\Components\Select::make('item_cat')
                     ->required()
                     ->relationship('Category', 'categories_name')->columnSpanFull(),
-
 
                 Forms\Components\Select::make('item_subcat')
                     ->required()
@@ -50,7 +49,7 @@ class ProductResource extends Resource
                                     ->image()
                                     ->required(),
                             ])
-                            ->relationship('category', 'categories_name')
+                            ->relationship('category', 'categories_name'),
                     ])
                     ->columnSpanFull(),
 
@@ -123,8 +122,7 @@ class ProductResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('to_shipping_days')
-                    ->sortable()
-
+                    ->sortable(),
 
             ])
             ->filters([

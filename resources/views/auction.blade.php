@@ -9,18 +9,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Home || One</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description"
-        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome-stars.min.css">
-    <link rel="stylesheet" href="assets/css/ion-fonts.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <link rel="stylesheet" href="assets/css/timecircles.css">
+    <link rel="stylesheet" href={{ asset('assets/css/bootstrap.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/style.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/font-awesome.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/fontawesome-stars.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/ion-fonts.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/slick.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/jquery-ui.min.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/nice-select.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/timecircles.css') }}>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -138,9 +136,10 @@
 
     .auction-details {
         background-color: #efefef;
-        padding: 20px;
+        /* padding: 20px; */
         border-radius: 10px;
-        margin-top: 20px;
+        width: 100%;
+        /*   margin-top: 20px; */
     }
 
     .bid-info {
@@ -193,7 +192,7 @@
         <!--end of navbar -->
         <div>
             <img class="w-100 vh-100 position-absolute top-0" style="z-index: -1000;"
-                src="./assets/images/slider/1-1.jpg" alt="">
+                src="{{ asset('assets/images/slider/1-1.jpg') }}" alt="">
         </div>
         <!--auction cards -->
         <div class="container auction_container d-flex justify-content-center align-items-center w-100 vh-50 "
@@ -212,12 +211,16 @@
                             <div class="card_aucation rounded-3 w-100">
                                 <div class="content p-2">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <img class="rounded-3 mt-3" style="width:300px; height:200px" src="/allImages/{{ $auction->img }}"   data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ $auction->id }}"alt="">
+                                        <img class="rounded-3 mt-3" style="width:300px; height:200px"
+                                            src="/allImages/{{ $auction->img }}" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalCenter{{ $auction->id }}"alt="">
                                     </div>
                                     <div class="d-flex justify-content-center mt-4 align-items-center text">
                                         <div class="d-flex flex-column me-3">
                                             <div class="fs-sm">Start bid</div>
-                                            <div class="fw-simebold">{{ $auction->endPrice ? $auction->endPrice : $auction->startPrice }}{{ $currency }}</div>
+                                            <div class="fw-simebold">
+                                                {{ $auction->endPrice ? $auction->endPrice : $auction->startPrice }}{{ $currency }}
+                                            </div>
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div class="fs-sm">Auction ends in</div>
@@ -238,93 +241,95 @@
 
     <!-- Button trigger modal -->
     @foreach ($auctions as $auction)
-    <div class="modal fade modal-wrapper "  data-bs-focus="false"id="exampleModalCenter{{ $auction->id }}">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="modal-inner-area sp-area row">
-                        <div class="container_zipy">
-                            <main>
-                                <div class="product-image" style="display: flex; justify-content: center;">
-                                    <img style="width: 300px;"
-                                        src="/allImages/{{ $auction->img }}"
-                                        alt="Rolex Watch">
-                                </div>
-                                <div class="auction-details">
-                                    <div class="bid-info">
-                                        <div class="highest-bid">
-                                            <span>highest bid</span>
-                                            <span>{{ $auction->endPrice ? $auction->endPrice : $auction->startPrice }} L.E</span>
-                                        </div>
-                                        <div class="auction-ends">
-                                            <span>auction ends in</span>
-                                            <div class="fw-simebold countdown" data-end-time="{{ $auction->TimeEnd }}">
+        <div class="modal fade modal-wrapper " data-bs-focus="false"id="exampleModalCenter{{ $auction->id }}">
+            <div class="modal-dialog modal-dialog-centered d-flex align-itmes-center justify-content-center m-auto"
+                role="document" style="width:600px">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-inner-area sp-area row">
+                            <div class="container_zipy">
+                                <main>
+                                    <div class="product-image" style="display: flex; justify-content: center;">
+                                        <img style="width: 300px;" src="/allImages/{{ $auction->img }}"
+                                            alt="Rolex Watch">
+                                    </div>
+                                    <div class="auction-details">
+                                        <div class="bid-info">
+                                            <div class="highest-bid">
+                                                <span>highest bid</span>
+                                                <span>{{ $auction->endPrice ? $auction->endPrice : $auction->startPrice }}
+                                                    L.E</span>
+                                            </div>
+                                            <div class="auction-ends">
+                                                <span>auction ends in</span>
+                                                <div class="fw-simebold countdown"
+                                                    data-end-time="{{ $auction->TimeEnd }}">
+                                                </div>
                                             </div>
                                         </div>
+                                        <button class="bid-button" onclick="Bid({{ $auction->id }})">Bid Now</button>
+                                        <div class="details">
+                                            <h2>Details</h2>
+                                            <p><span>Owned :</span> {{ $auction->owned }}</p>
+                                            <p><span>Brand :</span> {{ $auction->Barnd }}</p>
+                                            <p><span>sence :</span> {{ $auction->sience }}</p>
+                                            <p><span>Country :</span> {{ $auction->country }}</p>
+                                        </div>
                                     </div>
-                                    <button class="bid-button" onclick="Bid({{$auction->id}})">Bid Now</button>
-                                    <div class="details">
-                                        <h2>Details</h2>
-                                        <p><span>Owned :</span> {{ $auction->owned }}</p>
-                                        <p><span>Brand :</span> {{ $auction->Barnd }}</p>
-                                        <p><span>sence :</span> {{ $auction->sience }}</p>
-                                        <p><span>Country :</span> {{ $auction->country }}</p>
-                                    </div>
-                                </div>
-                            </main>
+                                </main>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endforeach
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function Bid(id) {
 
             Swal.fire({
-    title: "Add the bid",
-    html: `<form id="bidForm" method="POST" action="{{ route('addBid') }}">@csrf<input type="text" name="bid_amount" class="swal2-input" required><input type="hidden" name="id" value='${id}' class="swal2-input" required><button class="swal2-confirm swal2-styled mt-3  " type="submit">Submit Bid</button></form>`,
-    showConfirmButton: false,
-    showClass: {
-        popup: 'animate__animated animate__fadeInUp animate__faster',
-    },
-    hideClass: {
-        popup: 'animate__animated animate__fadeOutDown animate__faster',
-    }
-});
+                title: "Add the bid",
+                html: `<form id="bidForm" method="POST" action="{{ route('addBid') }}">@csrf<input type="text" name="bid_amount" class="swal2-input" required><input type="hidden" name="id" value='${id}' class="swal2-input" required><button class="swal2-confirm swal2-styled mt-3  " type="submit">Submit Bid</button></form>`,
+                showConfirmButton: false,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp animate__faster',
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutDown animate__faster',
+                }
+            });
 
-            }
+        }
     </script>
     @if ($errors->any())
-    <script>
-        var errorMessages = [];
+        <script>
+            var errorMessages = [];
 
-        @foreach ($errors->all() as $error)
-            errorMessages.push("{{ $error }}");
-        @endforeach
+            @foreach ($errors->all() as $error)
+                errorMessages.push("{{ $error }}");
+            @endforeach
 
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            html: errorMessages.join('<br>')
-        });
-    </script>
-@endif
-@if (session('success'))
-    <script>
-        // Initialize SweetAlert with success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{ session('success') }}'
-        });
-    </script>
-@endif
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: errorMessages.join('<br>')
+            });
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            // Initialize SweetAlert with success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endif
     <!-- end of auction cards -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -354,35 +359,35 @@
     </script>
 </body>
 
-<script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-<script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
+<script src={{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}></script>
+<script src={{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}></script>
 <!-- Modernizer JS -->
-<script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+<script src={{ asset('assets/js/vendor/modernizr-3.11.2.min.js') }}></script>
 <!-- Bootstrap JS -->
-<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+<script src={{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}></script>
 
 <!-- Slick Slider JS -->
-<script src="assets/js/plugins/slick.min.js"></script>
+<script src={{ asset('assets/js/plugins/slick.min.js') }}></script>
 <!-- Barrating JS -->
-<script src="assets/js/plugins/jquery.barrating.min.js"></script>
+<script src={{ asset('assets/js/plugins/jquery.barrating.min.js') }}></script>
 <!-- Counterup JS -->
-<script src="assets/js/plugins/jquery.counterup.js"></script>
+<script src={{ asset('assets/js/plugins/jquery.counterup.js') }}></script>
 <!-- Nice Select JS -->
-<script src="assets/js/plugins/jquery.nice-select.js"></script>
+<script src={{ asset('assets/js/plugins/jquery.nice-select.js') }}></script>
 <!-- Sticky Sidebar JS -->
-<script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
+<script src={{ asset('assets/js/plugins/jquery.sticky-sidebar.js') }}></script>
 <!-- Jquery-ui JS -->
-<script src="assets/js/plugins/jquery-ui.min.js"></script>
-<script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+<script src={{ asset('assets/js/plugins/jquery-ui.min.js') }}></script>
+<script src={{ asset('assets/js/plugins/jquery.ui.touch-punch.min.js') }}></script>
 <!-- Theia Sticky Sidebar JS -->
-<script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+<script src={{ asset('assets/js/plugins/theia-sticky-sidebar.min.js') }}></script>
 <!-- Waypoints JS -->
-<script src="assets/js/plugins/waypoints.min.js"></script>
+<script src={{ asset('assets/js/plugins/waypoints.min.js') }}></script>
 <!-- jQuery Zoom JS -->
-<script src="assets/js/plugins/jquery.zoom.min.js"></script>
+<script src={{ asset('assets/js/plugins/jquery.zoom.min.js') }}></script>
 <!-- Timecircles JS -->
-<script src="assets/js/plugins/timecircles.js"></script>
-<script src="assets/js/main.js"></script>
+<script src={{ asset('assets/js/plugins/timecircles.js') }}></script>
+<script src={{ asset('assets/js/main.js') }}></script>
 
 </html>
 <script>

@@ -18,11 +18,11 @@ class Category extends Model
     ];
 
     public function subCategory() {
-        return $this->hasMany(subCategory::class, 'subcategories_IdCat');
+        return $this->hasMany(SubCategory::class, 'subcategories_IdCat');
     }
 
     public function items()
-    {
+    {   
         return DB::table('items')->where('item_cat', $this->id)->paginate(9);
     }
 

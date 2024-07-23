@@ -18,7 +18,7 @@ class WebsiteResource extends Resource
     protected static ?string $model = Website::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Websites';
+    protected static ?string $navigationGroup = 'Website Settings';
     protected static ?string $pluralModelLabel = 'Slides';
 
     public static function form(Form $form): Form
@@ -29,7 +29,7 @@ class WebsiteResource extends Resource
                     ->required()
                     ->image()
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('text')
+                Forms\Components\RichEditor::make('text')
                     ->required()
                     ->columnSpanFull(),
             ]);

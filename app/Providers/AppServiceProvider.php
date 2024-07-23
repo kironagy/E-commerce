@@ -2,14 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Admin;
-use App\Models\Product;
 use Dedoc\Scramble\Scramble;
 use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
+use Filament\Http\Responses\Auth\Contracts\LoginResponse as LoginResponseContract;
 use Illuminate\Contracts\View\View as ViewView;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,13 +26,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->bind(LoginResponseContract::class, \App\Http\Responses\LoginResponse::class);
+
         Scramble::extendOpenApi(function (OpenApi $openApi) {
             $openApi->secure(
                 SecurityScheme::http('bearer', 'JWT')
             );
         });
 
-        View::composer('*', function(ViewView $view){
+        View::composer('*', function (ViewView $view) {
             $view->with(['currency' => 'L.E']);
         });
         Paginator::useBootstrap();

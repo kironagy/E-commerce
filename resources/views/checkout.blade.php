@@ -4,38 +4,35 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Checkout || Kenne</title>
+    <title>Checkout || One</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description"
-        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
 
     <!-- CSS
  ============================================ -->
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <!-- Fontawesome Star -->
-    <link rel="stylesheet" href="assets/css/fontawesome-stars.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome-stars.min.css') }}">
     <!-- Ion Icon -->
-    <link rel="stylesheet" href="assets/css/ion-fonts.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/ion-fonts.css') }}">
     <!-- Slick CSS -->
-    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
     <!-- Animation -->
-    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
     <!-- jQuery Ui -->
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
     <!-- Nice Select -->
-    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
     <!-- Timecircles -->
-    <link rel="stylesheet" href="assets/css/timecircles.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/timecircles.css') }}">
 
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 </head>
 
@@ -83,7 +80,7 @@
                                                 id="adderss">
                                         </div>
                                     </div>
-                                    {{-- 
+                                    {{--
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
                                             <label>Postcode / Zip <span class="required">*</span></label>
@@ -96,10 +93,16 @@
                                             <input placeholder="" type="email">
                                         </div>
                                     </div> --}}
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label>Build Number <span class="required">*</span></label>
-                                            <input type="text" id="buildNum" name="buildNum">
+                                            <input placeholder='Build Number' type="text" id="buildNum" name="buildNum">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="checkout-form-list">
+                                            <label>Phone Number <span class="required">*</span></label>
+                                            <input placeholder='Phone Number' type="text" required id="phoneNumber" name="phoneNumber">
                                         </div>
                                     </div>
                                     <div class="order-notes">
@@ -110,7 +113,7 @@
                                         </div>
                                     </div>
                                     {{-- <div class="col-md-6">
-                                      
+
                                             <div class="checkout-form-list">
                                                 <label>Phone <span class="required">*</span></label>
                                                 <input type="text">
@@ -132,13 +135,13 @@
                         <div class="different-address">
                             <div class="ship-different-title">
                                 <h3>
-                                    <label>pay online ?</label>
                                     <input id="ship-box" type="checkbox">
+                                    <label>pay online ?</label>
                                 </h3>
                             </div>
                             <div id="ship-box-info" class="row">
                                 <form id="onlineForm" action="{{ route('credit') }}" method="post">@csrf
-                                    <div id="payBut">Pay</div>
+                                    <div id="payBut" class="btn btn-dark col-12 bg-dark p-3">Pay for now</div>
                                 </form>
 
                             </div>
@@ -177,29 +180,38 @@
                                     <tfoot>
                                         <tr class="cart-subtotal">
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount">{{ $currency }}{{ $total }}</span></td>
+                                            <td><span class="amount">{{ $currency }}{{ $total }}</span>
+                                            </td>
                                         </tr>
                                         <tr>
 
                                             <td>
-                                                <div class="coupon-all">
-
+                                                <form action="{{ route('coupon_code') }}" method="POST"
+                                                    class="coupon-all">
+                                                    @csrf
                                                     <div class="coupon d-flex align-items-center">
-                                                        <input id="coupon_code" class="input-text" style="width:200px;" name="coupon_code"
-                                                            value="{{ $cart->basket_quantity }}"
+                                                        <input id="coupon_code" class="input-text"
+                                                            style="width:200px;" name="coupon_code"
                                                             placeholder="Coupon code" type="text">
 
                                                         <input class="button" name="apply_coupon"
                                                             value="Apply coupon" type="submit">
                                                     </div>
-                                                </div>
+                                                </form>
 
                                             </td>
                                         </tr>
                                         <tr class="order-total">
                                             <th>Order Total</th>
-                                            <td><strong><span
-                                                        class="amount">{{ $currency }}{{ $total }}</span></strong>
+                                            <td>
+                                                <strong>
+                                                    <span class="amount">{{ $currency }}
+                                                        @if (isset($discound))
+                                                            {{ $total - $total * ($discound->discount / 100) }}
+                                                        @else
+                                                            {{ $total }}
+                                                        @endif
+                                                    </span></strong>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -319,37 +331,37 @@
         }
     </script>
     <!-- jQuery JS -->
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}"></script>
     <!-- Modernizer JS -->
-    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="{{ asset('assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
     <!-- Bootstrap JS -->
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Slick Slider JS -->
-    <script src="assets/js/plugins/slick.min.js"></script>
+    <script src="{{ asset('assets/js/plugins/slick.min.js') }}"></script>
     <!-- Barrating JS -->
-    <script src="assets/js/plugins/jquery.barrating.min.js"></script>
+    <script src="{{ asset('assets/js/plugins/jquery.barrating.min.js') }}"></script>
     <!-- Counterup JS -->
-    <script src="assets/js/plugins/jquery.counterup.js"></script>
+    <script src="{{ asset('assets/js/plugins/jquery.counterup.js') }}"></script>
     <!-- Nice Select JS -->
-    <script src="assets/js/plugins/jquery.nice-select.js"></script>
+    <script src="{{ asset('assets/js/plugins/jquery.nice-select.js') }}"></script>
     <!-- Sticky Sidebar JS -->
-    <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <script src="{{ asset('assets/js/plugins/jquery.sticky-sidebar.js') }}"></script>
     <!-- Jquery-ui JS -->
-    <script src="assets/js/plugins/jquery-ui.min.js"></script>
-    <script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <script src="{{ asset('assets/js/plugins/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/jquery.ui.touch-punch.min.js') }}"></script>
     <!-- Theia Sticky Sidebar JS -->
-    <script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <script src="{{ asset('assets/js/plugins/theia-sticky-sidebar.min.js') }}"></script>
     <!-- Waypoints JS -->
-    <script src="assets/js/plugins/waypoints.min.js"></script>
+    <script src="{{ asset('assets/js/plugins/waypoints.min.js') }}"></script>
     <!-- jQuery Zoom JS -->
-    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+    <script src="{{ asset('assets/js/plugins/jquery.zoom.min.js') }}"></script>
     <!-- Timecircles JS -->
-    <script src="assets/js/plugins/timecircles.js"></script>
+    <script src="{{ asset('assets/js/plugins/timecircles.js') }}"></script>
 
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+    <script src={{ asset('assets/js/main.js') }}></script>
 
 </body>
 

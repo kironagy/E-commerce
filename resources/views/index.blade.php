@@ -1,13 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" dir="{{ __('message.dir') }}">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Home || One</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description"
-        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
 
@@ -15,29 +13,45 @@
  ============================================ -->
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/bootstrap.min.css') }}>
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/font-awesome.min.css') }}>
     <!-- Fontawesome Star -->
-    <link rel="stylesheet" href="assets/css/fontawesome-stars.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/fontawesome-stars.min.css') }}>
     <!-- Ion Icon -->
-    <link rel="stylesheet" href="assets/css/ion-fonts.css">
+    <link rel="stylesheet" href={{ asset('assets/css/ion-fonts.css') }}>
     <!-- Slick CSS -->
-    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href={{ asset('assets/css/slick.css') }}>
     <!-- Animation -->
-    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/animate.min.css') }}>
     <!-- jQuery Ui -->
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/jquery-ui.min.css') }}>
     <!-- Nice Select -->
-    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href={{ asset('assets/css/nice-select.css') }}>
     <!-- Timecircles -->
-    <link rel="stylesheet" href="assets/css/timecircles.css">
+    <link rel="stylesheet" href={{ asset('assets/css/timecircles.css') }}>
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href={{ asset('assets/css/style.css') }}>
     <!-- link aos -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 </head>
+
+@foreach (App\Models\Website::all() as $slider)
+    <style>
+        .bg-1,
+        .bg-2 {
+            background-image: url("/allImages/{{ $slider->img }}");
+        }
+
+        @media (max-width:780px) {
+            .slide-content {
+                position: abeslute;
+                left: 30px !important;
+            }
+        }
+    </style>
+@endforeach
 
 <body class="template-color-1">
 
@@ -45,8 +59,8 @@
         <!-- Begin Loading Area -->
         <div class="loading">
             <div class="text-center middle">
-                <img class="rounded-3" src="{{ asset("assets/images/splash.gif") }}">
-                
+                <img class="rounded-3" src="{{ asset('assets/images/splash.gif') }}">
+
             </div>
         </div>
         <!-- Loading Area End Here -->
@@ -79,33 +93,37 @@
                 "slidesToShow": 1
                 }}
             ]'>
-                <div class="slide-item bg-1 animation-style-01">
-                    <div class="slider-progress"></div>
-                    <div class="container" style="">
-                        <div class="slide-content ">
-                            <span>Exclusive Offer -20% Off This Week</span>
-                            <h2>Accessories <br> Explore Trending</h2>
-                            <p class="short-desc">Aliquam error eos cumque aut repellat quasi accusantium inventore
-                                necessitatibus. Vel quisquam distinctio in inventore dolorum.</p>
-                            <div class="slide-btn">
-                                <a class="kenne-btn" href="shop-left-sidebar.html">shop now</a>
+                @foreach (App\Models\Website::all() as $slider)
+                    <div class="slide-item bg-1 animation-style-01">
+                        <div class="slider-progress"></div>
+                        <div class="container" style="">
+                            <div class="slide-content "
+                                style="{{ LaravelLocalization::getCurrentLocale() == 'ar' ? 'position:abeslute; right:130px;@media(max-width:780px){position:abeslute; right:30px !important;}' : 'position:abeslute; left:130px' }}">
+
+
+                                <h2>{!! $slider->text !!}</h2>
+
+
+                                <div class="slide-btn">
+                                    <a class="kenne-btn" href="/ShopNow">shop now</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="slide-item bg-2 animation-style-01">
-                    <div class="slider-progress"></div>
-                    <div class="container">
-                        <div class="slide-content">
-                            <span>Exclusive Offer -10% Off This Week</span>
-                            <h2>Stylist <br> Female Clothes</h2>
-                            <p class="short-desc-2">Made from Soft, Durable, US-grown Supima cotton.</p>
-                            <div class="slide-btn">
-                                <a class="kenne-btn" href="shop-left-sidebar.html">shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <!--<div class="slide-item bg-2 animation-style-01">-->
+                    <!--    <div class="slider-progress"></div>-->
+                    <!--
+@endforeach  <div class="container">-->
+                    <!--        <div class="slide-content">-->
+                    <!--            <span>Exclusive Offer -10% Off This Week</span>-->
+                    <!--            <h2>Stylist <br> Female Clothes</h2>-->
+                    <!--            <p class="short-desc-2">Made from Soft, Durable, US-grown Supima cotton.</p>-->
+                    <!--            <div class="slide-btn">-->
+                    <!--                <a class="kenne-btn" href="/ShopNow">shop now</a>-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
 
             </div>
 
@@ -120,16 +138,16 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="service-item">
                                 <div class="content">
-                                    <h4>Money Return</h4>
-                                    <p>30 days for free return</p>
+                                    <h4>{{ __('message.Money_Return') }}</h4>
+                                    <p>{{ __('message.30_days') }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="service-item">
                                 <div class="content">
-                                    <h4>Online Support</h4>
-                                    <p>Support 24 hours a day</p>
+                                    <h4>{{ __('message.Online_Support') }}</h4>
+                                    <p>{{ __('message.Support 24 hours a day') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +174,8 @@
                         <div class="banner-item img-hover_effect">
                             <div class="banner-img " data-aos="zoom-in-up">
                                 <a href="javascrip:void(0)">
-                                    <img class="rounded-3" src="assets/images/slider/378x252AR2.png" alt="Banner">
+                                    <img class="rounded-3" src={{ asset('assets/images/slider/378x252AR2.png') }}
+                                        alt="Banner">
                                 </a>
                             </div>
                         </div>
@@ -165,7 +184,8 @@
                         <div class="banner-item img-hover_effect">
                             <div class="banner-img " data-aos="zoom-in-up">
                                 <a href="javascrip:void(0)">
-                                    <img class="rounded-3" src="assets/images/slider/unnamednew2.png" alt="Banner">
+                                    <img class="rounded-3" src={{ asset('assets/images/slider/unnamednew2.png') }}
+                                        alt="Banner">
                                 </a>
                             </div>
                         </div>
@@ -181,7 +201,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title">
-                            <h3>All Product</h3>
+                            <h3 style="position: relative;top:-40px;">{{ __('message.New_product') }}</h3>
 
                         </div>
                     </div>
@@ -215,12 +235,10 @@
                                             <div class="product-img">
                                                 <a href="{{ route('single-product', ['product' => $item->id]) }}">
                                                     <img class="primary-img"
-                                                        src="{{ asset('allImages/' . $item->cover[0]) }}"
-                                                        alt="Kenne's Product Image">
+                                                        src="{{ asset('allImages/' . $item->cover[0]) }}">
 
                                                     <img class="secondary-img"
-                                                        src="{{ asset('allImages/' . $item->cover[1]) }}"
-                                                        alt="Kenne's Product Image">
+                                                        src="{{ asset('allImages/' . $item->cover[1]) }}">
                                                 </a>
                                                 {{-- <span class="sticker-2">Hot</span> --}}
                                                 <div class="add-actions">
@@ -277,12 +295,16 @@
         <!-- Begin Banner Area Two -->
         <div class="banner-area banner-area-2">
             <div class="container">
+                @php
+                    $banner = App\Models\Panner::get()->first();
+                @endphp
                 <div class="row" style="overflow-x: hidden !important;">
                     <div class="col-md-6">
                         <div class="banner-item img-hover_effect" data-aos="fade-right">
                             <div class="banner-img">
                                 <a href="javascrip:void(0)">
-                                    <img class="img-full rounded-3" src="assets/images/belle_3.webp" alt="Banner">
+                                    <img class="img-full rounded-3" src={{ url("allImages/$banner->panner_one") }}
+                                        alt="Banner">
                                 </a>
                             </div>
                         </div>
@@ -291,7 +313,7 @@
                         <div class="banner-item img-hover_effect">
                             <div class="banner-img">
                                 <a href="javascrip:void(0)">
-                                    <img class="img-full rounded-3" src="assets/images/download_4.webp"
+                                    <img class="img-full rounded-3" src={{ asset("allImages/$banner->panner_two") }}
                                         alt="Banner">
                                 </a>
                             </div>
@@ -304,11 +326,11 @@
 
         <!-- Begin Product Tab Area -->
         <div class="product-tab_area">
-            <div class="container">
+            <div class="container ">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="section-title">
-                            <h3>All Product</h3>
+                        <div class="section-title text-start">
+                            <h3 style="position: relative;top:-40px;">{{ __('message.All_Product') }}</h3>
                             <div class="product-tab">
                                 <ul class="nav product-menu">
                                     {{-- categories --}}
@@ -356,12 +378,10 @@
                                                         <a
                                                             href="{{ route('single-product', ['product' => $item->id]) }}">
                                                             <img class="primary-img"
-                                                                src="{{ asset('allImages/' . json_decode($item->cover)[0]) }}"
-                                                                alt="Kenne's Product Image">
+                                                                src="{{ asset('allImages/' . json_decode($item->cover)[0]) }}">
 
                                                             <img class="secondary-img"
-                                                                src="{{ asset('allImages/' . json_decode($item->cover)[1]) }}"
-                                                                alt="Kenne's Product Image">
+                                                                src="{{ asset('allImages/' . json_decode($item->cover)[1]) }}">
                                                         </a>
                                                         {{-- <span class="sticker-2">Hot</span> --}}
                                                         <div class="add-actions">
@@ -444,8 +464,7 @@
 
                                                 @foreach (json_decode($item->item_img) as $img)
                                                     <div class="single-slide">
-                                                        <img src="{{ asset('allImages/' . $img) }}"
-                                                            alt="Kenne's Product Image">
+                                                        <img src="{{ asset('allImages/' . $img) }}">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -467,8 +486,7 @@
 
                                                 @foreach (json_decode($item->item_img) as $img)
                                                     <div class="single-slide">
-                                                        <img src="{{ asset('allImages/' . $img) }}"
-                                                            alt="Kenne's Product Image">
+                                                        <img src="{{ asset('allImages/' . $img) }}">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -660,8 +678,7 @@
 
                                             @foreach ($item->item_img as $img)
                                                 <div class="single-slide">
-                                                    <img src="{{ asset('allImages/' . $img) }}"
-                                                        alt="Kenne's Product Image">
+                                                    <img src="{{ asset('allImages/' . $img) }}">
                                                 </div>
                                             @endforeach
                                         </div>
@@ -683,8 +700,7 @@
 
                                             @foreach ($item->item_img as $img)
                                                 <div class="single-slide">
-                                                    <img src="{{ asset('allImages/' . $img) }}"
-                                                        alt="Kenne's Product Image">
+                                                    <img src="{{ asset('allImages/' . $img) }}">
                                                 </div>
                                             @endforeach
                                         </div>
@@ -860,37 +876,37 @@
 ============================================ -->
 
     <!-- jQuery JS -->
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
+    <script src={{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}></script>
+    <script src={{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}></script>
     <!-- Modernizer JS -->
-    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src={{ asset('assets/js/vendor/modernizr-3.11.2.min.js') }}></script>
     <!-- Bootstrap JS -->
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src={{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}></script>
 
     <!-- Slick Slider JS -->
-    <script src="assets/js/plugins/slick.min.js"></script>
+    <script src={{ asset('assets/js/plugins/slick.min.js') }}></script>
     <!-- Barrating JS -->
-    <script src="assets/js/plugins/jquery.barrating.min.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.barrating.min.js') }}></script>
     <!-- Counterup JS -->
-    <script src="assets/js/plugins/jquery.counterup.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.counterup.js') }}></script>
     <!-- Nice Select JS -->
-    <script src="assets/js/plugins/jquery.nice-select.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.nice-select.js') }}></script>
     <!-- Sticky Sidebar JS -->
-    <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.sticky-sidebar.js') }}></script>
     <!-- Jquery-ui JS -->
-    <script src="assets/js/plugins/jquery-ui.min.js"></script>
-    <script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery-ui.min.js') }}></script>
+    <script src={{ asset('assets/js/plugins/jquery.ui.touch-punch.min.js') }}></script>
     <!-- Theia Sticky Sidebar JS -->
-    <script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <script src={{ asset('assets/js/plugins/theia-sticky-sidebar.min.js') }}></script>
     <!-- Waypoints JS -->
-    <script src="assets/js/plugins/waypoints.min.js"></script>
+    <script src={{ asset('assets/js/plugins/waypoints.min.js') }}></script>
     <!-- jQuery Zoom JS -->
-    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.zoom.min.js') }}></script>
     <!-- Timecircles JS -->
-    <script src="assets/js/plugins/timecircles.js"></script>
+    <script src={{ asset('assets/js/plugins/timecircles.js') }}></script>
 
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+    <script src={{ asset('assets/js/main.js') }}></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

@@ -3,35 +3,38 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClientsDesignResource\Pages;
-use App\Filament\Resources\ClientsDesignResource\RelationManagers;
 use App\Models\ClientsDesign;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ClientsDesignResource extends Resource
 {
     protected static ?string $model = ClientsDesign::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-beaker';
-    protected static ?int $navigationSort = 4;
+    protected static ?string $navigationGroup = 'Design Area';
 
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\Textarea::make('image')
-                    ->required()
-                    ->columnSpanFull(),
+                // Forms\Components\Select::make('user_id')
+                //     ->relationship('user', 'name')
+                //     ->required(),
+                // Forms\Components\Textarea::make('image')
+                //     ->required()
+                //     ->columnSpanFull(),
+
+                FileUpload::make('image'),
+
             ]);
     }
 
@@ -45,9 +48,9 @@ class ClientsDesignResource extends Resource
                 Tables\Columns\TextColumn::make('user_name')
                     ->getStateUsing(fn ($record) => User::find($record->user_id)->user_name),
 
+                ImageColumn::make('image')->label('Image'),
+                // Other columns...
 
-                Tables\Columns\ImageColumn::make('img')
-                ->label('svg'),
             ])
             ->recordAction(false)
             ->recordUrl(null)

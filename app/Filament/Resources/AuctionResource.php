@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AuctionResource extends Resource
 {
     protected static ?string $model = Auction::class;
+    protected static ?string $navigationGroup = 'Products Area';
 
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
     protected static ?int $navigationSort = 2;

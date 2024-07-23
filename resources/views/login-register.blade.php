@@ -4,13 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login Or Register || Kenne</title>
+    <title>Login Or Register || One</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description"
-        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
 
     <!-- CSS
  ============================================ -->
@@ -78,17 +76,17 @@
                         <form action="{{ route('signin.submit') }}" method="POST">
                             @csrf
                             <div class="login-form">
-                                <h4 class="login-title">Login</h4>
+                                <h4 class="login-title">{{ __('message.Login') }}</h4>
                                 <div class="row">
                                     <div class="col-md-12 col-12">
-                                        <label>Email Address*</label>
+                                        <label>{{ __('message.Email_Address') }}</label>
                                         <input type="email" name="email" placeholder="Email Address">
                                         @error('email')
                                             <div>{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-12 mb--20">
-                                        <label>Password</label>
+                                        <label>{{ __('message.Password') }}</label>
                                         <input type="password" name="password" placeholder="Password">
                                         @error('password')
                                             <div>{{ $message }}</div>
@@ -97,19 +95,19 @@
                                     <div class="col-md-8">
                                         <div class="check-box">
                                             <input type="checkbox" name="remember_me" id="remember_me">
-                                            <label for="remember_me">Remember me</label>
+                                            <label for="remember_me">{{ __('message.Remember_Me') }}</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="forgotton-password_info">
-                                            <a href="#"> Forgotten pasward?</a>
+                                            <a href="#">{{ __('message.Forgotten_pasward') }}</a>
                                         </div>
                                     </div>
                                     @error('account')
                                         <div>{{ $message }}</div>
                                     @enderror
                                     <div class="col-md-12">
-                                        <button class="kenne-login_btn">Login</button>
+                                        <button class="kenne-login_btn">{{ __('message.Login') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -119,46 +117,50 @@
                         <form action="{{ route('signup.submit') }}" method="POST">
                             @csrf
                             <div class="login-form">
-                                <h4 class="login-title">Register</h4>
+                                <h4 class="login-title">{{ __('message.Register') }}</h4>
                                 <div class="row">
                                     <div class="col-md-6 col-12 mb--20">
-                                        <label>First Name</label>
+                                        <label>{{ __('message.First_Name') }}</label>
                                         <input type="text" name="first_name" placeholder="First Name">
                                         @error('first_name')
                                             <div>{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 col-12 mb--20">
-                                        <label>Last Name</label>
+                                        <label>{{ __('message.Last_Name') }}</label>
                                         <input type="text" name="last_name" placeholder="Last Name">
                                         @error('last_name')
                                             <div>{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
-                                        <label>Email Address*</label>
+                                        <label>{{ __('message.Email_Address') }}</label>
                                         <input type="email" name="email" placeholder="Email Address">
                                         @error('email')
                                             <div>{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-md-12">
+                                        <label>{{ __('message.Referal_Code') }}</label>
+                                        <input type="text" name="referalCode" placeholder="referal code">
+
+                                    </div>
                                     <div class="col-md-6">
-                                        <label>Password</label>
+                                        <label>{{ __('message.Password') }}</label>
                                         <input type="password" name="password" placeholder="Password">
                                         @error('password')
                                             <div>{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Confirm Password</label>
-                                        <input type="password" name="confirm_password"
-                                            placeholder="Confirm Password">
+                                        <label>{{ __('message.Confirm_Password') }}</label>
+                                        <input type="password" name="confirm_password" placeholder="Confirm Password">
                                         @error('confirm_password')
                                             <div>{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-12">
-                                        <button class="kenne-register_btn">Register</button>
+                                        <button class="kenne-register_btn">{{ __('message.Register') }}</button>
                                     </div>
                                 </div>
                             </div>

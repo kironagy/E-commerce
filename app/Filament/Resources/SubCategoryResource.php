@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SubCategoryResource extends Resource
 {
     protected static ?string $model = SubCategory::class;
+    protected static ?string $navigationGroup = 'Products Area';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     protected static ?int $navigationSort = 8;

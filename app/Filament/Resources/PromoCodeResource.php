@@ -17,6 +17,7 @@ class PromoCodeResource extends Resource
 {
     protected static ?string $model = PromoCode::class;
 
+    protected static ?string $navigationGroup = 'Products Area';
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
     protected static ?int $navigationSort = 6;
     public static function form(Form $form): Form

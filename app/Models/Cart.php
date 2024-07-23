@@ -21,6 +21,7 @@ class Cart extends Model
         'Ticket',
         'address',
         'buildNum',
+        'phoneNumber',
         'notes',
         'basket_time',
         'item_price',

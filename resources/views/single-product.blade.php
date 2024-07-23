@@ -1,16 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" dir="{{ __('message.dir') }}">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Single Product || Kenne</title>
+    <title>Single Product || One</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description"
-        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
+
 
     <!-- CSS
  ============================================ -->
@@ -125,7 +124,7 @@
                                                     <button class="accordion-button collapsed hedding" type="button"
                                                         data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
                                                         aria-expanded="false" aria-controls="flush-collapseOne">
-                                                        PRODUCT DETAILS </button>
+                                                        {{ __('message.PRODUCT_DETAILS') }} </button>
                                                 </h2>
                                                 <div id="flush-collapseOne" class="accordion-collapse collapse"
                                                     aria-labelledby="flush-headingOne"
@@ -140,7 +139,7 @@
                                                     <button class="accordion-button collapsed hedding" type="button"
                                                         data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
                                                         aria-expanded="false" aria-controls="flush-collapseTwo">
-                                                        TRACEABILITY
+                                                        {{ __('message.TRACEABILITY') }}
                                                     </button>
                                                 </h2>
                                                 <div id="flush-collapseTwo" class="accordion-collapse collapse"
@@ -189,7 +188,7 @@
                                                         data-bs-toggle="collapse"
                                                         data-bs-target="#flush-collapseThree" aria-expanded="false"
                                                         aria-controls="flush-collapseThree">
-                                                        SHIPPING
+                                                        {{ __('message.SHIPPING') }}
                                                     </button>
                                                 </h2>
                                                 <div id="flush-collapseThree" class="accordion-collapse collapse"
@@ -217,7 +216,7 @@
                                 </div>
 
                                 <div class="quantity">
-                                    <label>Quantity</label>
+                                    <label>{{ __('message.Quantity') }}</label>
                                     <div class="cart-plus-minus">
                                         <input class="cart-plus-minus-box" value="1" type="text">
                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
@@ -226,8 +225,10 @@
                                 </div>
                                 <div class="qty-btn_area">
                                     <ul>
-                                        <li><a class="qty-cart_btn me-2" href="cart.html">Add To Cart</a></li>
-                                        <li><a class="qty-cart_btn" href="cart.html">buy it now</a></li>
+                                        <li><a class="qty-cart_btn me-2"
+                                                href="{{ route('cart.save', ['product'=>$product]) }}">{{ __('message.AddToCart') }}</a></li>
+                                        <li><a class="qty-cart_btn" href="{{ route('cart.save', ['product'=>$product]) }}">{{ __('message.BuyItNow') }}</a>
+                                        </li>
                                         <li><a class="qty-wishlist_btn"
                                                 href="{{ route('wishlist.save', ['product' => $product->id]) }}"
                                                 data-bs-toggle="tooltip" title="Add To Wishlist"><i
@@ -284,7 +285,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title">
-                            <h3>more products</h3>
+                            <h3>{{ __('msg.More_products') }}</h3>
                             <div class="product-arrow"></div>
                         </div>
                     </div>
@@ -464,7 +465,8 @@
                                                                             data-bs-target="#flush-collapseOne"
                                                                             aria-expanded="false"
                                                                             aria-controls="flush-collapseOne">
-                                                                            PRODUCT DETAILS </button>
+                                                                            {{ __('message.PRODUCT_DETAILS') }}
+                                                                        </button>
                                                                     </h2>
                                                                     <div id="flush-collapseOne"
                                                                         class="accordion-collapse collapse"
@@ -484,7 +486,7 @@
                                                                             data-bs-target="#flush-collapseTwo"
                                                                             aria-expanded="false"
                                                                             aria-controls="flush-collapseTwo">
-                                                                            TRACEABILITY
+                                                                            {{ __('message.TRACEABILITY') }}
                                                                         </button>
                                                                     </h2>
                                                                     <div id="flush-collapseTwo"
@@ -546,7 +548,7 @@
                                                                             data-bs-target="#flush-collapseThree"
                                                                             aria-expanded="false"
                                                                             aria-controls="flush-collapseThree">
-                                                                            SHIPPING
+                                                                            {{ __('message.SHIPPING') }}
                                                                         </button>
                                                                     </h2>
                                                                     <div id="flush-collapseThree"
@@ -571,7 +573,7 @@
                                                         </div>
 
                                                         <div class="quantity">
-                                                            <label>Quantity</label>
+                                                            <label>{{ __('message.Quantity') }}</label>
                                                             <div class="cart-plus-minus">
                                                                 <input class="cart-plus-minus-box" value="1"
                                                                     type="text">

@@ -17,7 +17,9 @@ class WebsiteSettingResource extends Resource
 {
     protected static ?string $model = WebsiteSetting::class;
 
-    protected static ?string $navigationGroup = 'Websites';
+    protected static ?string $navigationGroup = 'Website Settings';
+        protected static ?string $pluralModelLabel  = 'Social Media ';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -32,14 +34,6 @@ class WebsiteSettingResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('instagram')
                     ->required()
-                    ->columnSpanFull(),
-                Forms\Components\FileUpload::make('paner_one')
-                    ->required()
-                    ->image()
-                    ->columnSpanFull(),
-                Forms\Components\FileUpload::make('paner_two')
-                    ->required()
-                    ->image(    )
                     ->columnSpanFull(),
             ]);
     }

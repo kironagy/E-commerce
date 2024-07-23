@@ -4,13 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Shop Left Sidebar || Kenne</title>
+    <title>Shop Left Sidebar || One</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description"
-        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
 
     <!-- CSS
  ============================================ -->
@@ -74,7 +71,35 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-4 order-2 order-lg-1">
                         <div class="kenne-sidebar-catagories_area">
-                            
+                            <div class="kenne-sidebar_categories">
+                                <div class="kenne-categories_title first-child">
+                                    <h5>Filter by price</h5>
+                                </div>
+                                <div class="price-filter">
+                                    <div id="slider-range"
+                                        class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                                        <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                            style="width: 100%; left: 0%;"></div><span tabindex="0"
+                                            class="ui-slider-handle ui-corner-all ui-state-default"
+                                            style="left: 0%;"></span><span tabindex="0"
+                                            class="ui-slider-handle ui-corner-all ui-state-default"
+                                            style="left: 100%;"></span>
+                                    </div>
+                                    <form action="{{ route('product.price') }}" method="POST"
+                                        class="price-slider-amount">
+                                        @csrf
+                                        <div class="label-input">
+                                            <label>price : </label>
+                                            <input type="text" id="amount" name="price"
+                                                placeholder="Add Your Price">
+
+                                            <input hidden type="text" id="amountMin" name="min">
+                                            <input hidden type="text" id="amountMax" name="max">
+                                            <button onclick="getAmount()" class="filter-btn">Filter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="kenne-sidebar_categories category-module">
                                 <div class="kenne-categories_title">
                                     <h5>Product Categories</h5>
@@ -115,19 +140,28 @@
 
                         </div>
                         <div class="shop-product-wrap grid gridview-3 row">
-                            @php
-                                if (!isset($items)) {
-                                    if (isset($id)) {
-                                        $items = App\Models\Product::where('item_subcat', $id)->paginate(9);
-                                    } else {
-                                        $items = App\Models\Product::paginate(9);
-                                    }
-                                }
 
+                            @php
+                                // Retrieve min and max values from the session
+                                $minPrice = session('amount.min');
+                                $maxPrice = session('amount.max');
+
+                                // Check if both min and max prices are available
+                                if (isset($minPrice) && isset($maxPrice)) {
+                                    // Filter items based on the price range
+                                    $items = App\Models\Product::whereBetween('item_price', [
+                                        $minPrice,
+                                        $maxPrice,
+                                    ])->paginate(9);
+                                } else {
+                                    // If min and max prices are not set, fetch all products
+                                    $items = App\Models\Product::paginate(9);
+                                }
                             @endphp
                             @if ($items->isEmpty())
                                 <center>
-                                    <iframe width="300" height="300" src="https://lottie.host/embed/f862d380-1202-42f1-970e-de64f668ed37/QSbMUK1jEH.json"></iframe>
+                                    <iframe width="300" height="300"
+                                        src="https://lottie.host/embed/f862d380-1202-42f1-970e-de64f668ed37/QSbMUK1jEH.json"></iframe>
                                 </center>
                             @endif
                             @foreach ($items as $item)
@@ -135,7 +169,7 @@
                                     <div class="product-item">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="single-product.html">
+                                                <a href="{{ route('single-product', ['product' => $item->id]) }}">
                                                     <img class="primary-img" src="/allImages/{{ $item->cover[0] }}"
                                                         alt="Kenne's Product Image">
                                                     <img class="secondary-img" src="/allImages/{{ $item->cover[1] }}"
@@ -493,7 +527,25 @@
 
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>
+    <script>
+        let amount = document.getElementById("amount");
+        let amountMin = document.getElementById("amountMin");
+        let amountMax = document.getElementById("amountMax");
 
+        function getAmount() {
+            let amountText = amount.value; // Assuming the value is something like "L.E20 - L.E5000"
+            let numbers = amountText.match(/\d+/g); // This regex finds all groups of digits in the string
+            if (numbers) {
+                let min = parseInt(numbers[0], 10); // Convert the first number to an integer
+                let max = parseInt(numbers[1], 10); // Convert the second number to an integer
+                amountMin.value = min;
+                amountMax.value = max;
+
+            }
+            document.querySelector('.price-slider-amount').submit(); // Submit the form
+
+        }
+    </script>
 </body>
 
 </html>

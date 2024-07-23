@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,6 @@ use Illuminate\Support\Facades\Route;
 // //Products
 // Route::get('/products', [ApiController::class, 'product']);
 // Route::get('/products/buy/{id}', [ApiController::class, 'productShow']);
-
 
 // //Promo
 // Route::get('/promoCode/check', [ApiController::class, 'checkPromoCode']);

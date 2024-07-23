@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap.min.css') }}">
     <title>Resizable and Draggable Image</title>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+
     <style>
         *::-webkit-scrollbar {
             height: 10px;
@@ -50,6 +52,17 @@
             z-index: 456456;
         }
 
+        #container2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         #container img {
             max-width: 100%;
             max-height: 100%;
@@ -62,9 +75,6 @@
             position: absolute;
             width: 150px;
             height: 150px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
         }
 
         .svg-bar {
@@ -115,6 +125,18 @@
         button {
             outline: none;
             border: none;
+        }
+
+        #image {
+            position: absolute;
+            top: auto;
+            left: auto;
+            z-index: 50000000000;
+            transition: 0.3ms;
+        }
+
+        #image:hover {
+            outline: 1px solid rgba(40, 113, 248, 0.274);
         }
 
         @media (max-width:944px) {
@@ -189,14 +211,28 @@
         .modal-content {
             background-color: #fefefe;
             margin: auto;
-            padding: 20px;
+            padding: 0px;
             border: 1px solid #888;
             width: 100%;
-            height: auto;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
 
         }
 
+        #btn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 999999999999999999999;
+        }
+
         .close {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 30000000000;
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -208,6 +244,14 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        @media (min-width: 992px) {
+            .col-lg-3 {
+                flex: 0 0 auto;
+                margin-right: 30px;
+                width: 300px !important;
+            }
         }
     </style>
 </head>
@@ -223,7 +267,7 @@
                             d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
                     </svg></div>
                 <div class="fw-bold">
-                    add design
+                    Add Design
                 </div>
             </div>
         </button>
@@ -236,16 +280,13 @@
                             d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707m4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707" />
                     </svg></div>
                 <div class="fw-bold">
-                    full screen
+                    Full Screen
                 </div>
             </div>
         </button>
     </div>
-    <div class="container">
 
-
-        <div id="container" class="resize-drag">
-        </div>
+    <div id="container" class="resize-drag">
         <img id="image" src="">
     </div>
     <div class="d-flex justify-content-center flex-column flex-lg-row ">
@@ -255,7 +296,7 @@
 
         <div id="color-picker-box " class="bg-light px-4 rounded-3 py-5 color-picker-box ms-4 "
             style="position: absolute;z-index: 3343434;bottom:70px; right:50px;">
-            <div class="fw-bold fs-5 text-capitalize mb-3">round t-shirt</div>
+<div id="design-name" class="fw-bold fs-5 text-capitalize mb-3"></div>
             <div class=" palte ">
 
                 <div id=" color-palette " class=" mb-3 me-2 me-md-0" style=" display: flex; gap: 10px;">
@@ -321,473 +362,324 @@
                 <input type="color" id="color-picker" value="#000000" ">
         </div>
         </div>
-   
 
-                <div class=" svg-bar d-flex justify-content-center align-items-center mt-3 position-fixed bottom-0 "
+
+                <div class=" svg-bar d-flex justify-content-center align-items-center  position-fixed bottom-0 "
                     style=" z-index: 3343434;">
-                <div class="svg-item bg-light p-2 rounded-3 ms-5  " data-content="content1">
+
+                                                 @foreach ($desgines as $desgine)
+                <div class="svg-item bg-light p-2 rounded-3 " data-content="content1"  data-name="{{ $desgine->name }}">
                     <!-- SVG 1 -->
-                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1280.000000pt" height="1220.000000pt"
-                        viewBox="0 0 1280.000000 1220.000000" preserveAspectRatio="xMidYMid meet">
+                    <?php
+                    $svgPath = "allImages/$desgine->img";
+                    $svgContent = file_get_contents($svgPath);
+                    ?>
+                    <div id='svg'
+                        style="width: 60px; height: 60px;display: flex;align-items: center;justify-items:center;justify-content: center">
+                        {!! $svgContent !!}
+                    </div>
+
+                    {{-- <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1280.000000pt"
+                        height="1220.000000pt" viewBox="0 0 1280.000000 1220.000000"
+                        preserveAspectRatio="xMidYMid meet">
                         <metadata>
                             Created by potrace 1.15, written by Peter Selinger 2001-2017
                         </metadata>
-                        <g transform="translate(0.000000,1220.000000) scale(0.100000,-0.100000)" fill="#000000"
-                            stroke="none">
-                            <path d=" M7756 12134 c-166 -160 -461 -310 -732 -375 -199 -47 -480 -63 -702 -38 -331 35
-                    -706 155 -1071 341 -96 48 -179 88 -184 88 -6 0 -135 -48 -286 -106 -962 -369 -1421 -545 -1753 -673
-                    l-376 -146 -1326 -1519 -1325 -1520 37 -43 c20 -24 444 -500 942 -1057 l905 -1015 136 0 136 -1 239 252
-                    239 251 5 -3194 5 -3194 33 -85 c18 -47 37 -89 41 -93 4 -4 1650 -3 3657 4 l3648 12 108 75 108 76 0
-                    290 c0 160 -5 707 -10 1216 -8 835 -15 1509 -39 4030 -4 432 -6 787 -5 789 2 2 123 -113 269 -255 147
-                    -143 272 -260 278 -261 7 -2 58 7 115 20 l103 22 924 1035 924 1035 1 155 0 155 -1219 1325 -1219 1325
-                    -928 419 c-511 231 -1081 489 -1267 573 -186 84 -339 153 -340 153 -1 -1 -33 -30 -71 -66z" />
-                </g>
-                </svg>
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3" data-content="content2">
-                <!-- SVG 2 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="860.000000pt" height="1280.000000pt"
-                    viewBox="0 0 860.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M2557 12785 c-196 -27 -239 -44 -254 -103 -8 -32 17 -314 59 -657 51
--423 50 -718 -3 -1080 -19 -124 -20 -152 -9 -245 26 -240 99 -493 312 -1085
-160 -444 180 -527 180 -740 0 -142 -25 -292 -65 -392 -13 -32 -47 -83 -82
--123 -143 -161 -637 -873 -791 -1141 -236 -412 -599 -1220 -857 -1909 -118
--316 -178 -507 -257 -815 -34 -132 -131 -485 -216 -785 -176 -620 -255 -931
--384 -1515 -50 -225 -113 -504 -141 -619 -55 -226 -57 -270 -18 -321 32 -39
-109 -73 217 -95 130 -27 198 -62 317 -166 120 -104 192 -154 294 -204 153 -76
-296 -104 392 -77 87 25 129 28 209 18 109 -14 173 -38 222 -83 103 -95 206
--144 371 -178 145 -31 183 -46 206 -86 12 -20 40 -43 71 -59 62 -31 188 -65
-242 -65 49 0 100 -26 169 -86 94 -81 175 -108 429 -138 269 -33 872 -46 1155
--26 106 8 149 15 178 31 49 25 212 38 477 39 295 0 486 25 521 66 8 9 19 37
-24 63 15 66 36 74 199 70 279 -7 282 -7 369 39 71 38 85 42 150 42 140 0 764
-49 892 70 68 11 88 22 122 66 15 20 47 45 70 55 52 22 233 66 443 109 85 17
-177 36 204 42 l48 11 -3 195 -4 195 152 43 c273 77 407 153 430 242 3 15 -3
-66 -16 122 -44 188 -81 405 -141 822 -74 512 -104 689 -129 776 -11 37 -29
-112 -42 167 -12 55 -37 144 -55 198 -27 76 -34 113 -34 171 0 50 -4 77 -14 85
--21 17 -61 114 -127 304 -229 657 -730 1836 -1075 2527 -95 190 -258 518 -362
-730 -104 212 -232 455 -283 540 -273 457 -362 627 -398 759 -28 101 -44 268
--36 371 18 241 78 436 266 863 176 399 225 633 304 1442 72 735 94 911 150
-1220 20 105 37 203 40 218 4 23 0 29 -22 38 -70 26 -215 52 -303 53 -87 1 -99
--1 -143 -27 -56 -33 -82 -66 -184 -239 -187 -313 -482 -638 -658 -723 -139
--67 -332 -116 -595 -152 -193 -26 -677 -26 -835 0 -289 48 -412 112 -618 327
--164 171 -282 343 -429 626 -44 84 -91 163 -105 174 -30 23 -56 24 -196 5z" />
-                    </g>
-                </svg>
+                    </svg> --}}
+                </div>
+                @endforeach
+
+
+
 
             </div>
-            <div class="svg-item bg-light p-2 rounded-3 " data-content="content1">
-                <!-- SVG 1 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1280.000000pt" height="1220.000000pt"
-                    viewBox="0 0 1280.000000 1220.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1220.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M7756 12134 c-166 -160 -461 -310 -732 -375 -199 -47 -480 -63 -702
-               -38 -331 35 -706 155 -1071 341 -96 48 -179 88 -184 88 -6 0 -135 -48 -286
-               -106 -962 -369 -1421 -545 -1753 -673 l-376 -146 -1326 -1519 -1325 -1520 37
-               -43 c20 -24 444 -500 942 -1057 l905 -1015 136 0 136 -1 239 252 239 251 5
-               -3194 5 -3194 33 -85 c18 -47 37 -89 41 -93 4 -4 1650 -3 3657 4 l3648 12 108
-               75 108 76 0 290 c0 160 -5 707 -10 1216 -8 835 -15 1509 -39 4030 -4 432 -6
-               787 -5 789 2 2 123 -113 269 -255 147 -143 272 -260 278 -261 7 -2 58 7 115
-               20 l103 22 924 1035 924 1035 1 155 0 155 -1219 1325 -1219 1325 -928 419
-               c-511 231 -1081 489 -1267 573 -186 84 -339 153 -340 153 -1 -1 -33 -30 -71
-               -66z" />
-                    </g>
-                </svg>
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3" data-content="content2">
-                <!-- SVG 2 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="860.000000pt" height="1280.000000pt"
-                    viewBox="0 0 860.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M2557 12785 c-196 -27 -239 -44 -254 -103 -8 -32 17 -314 59 -657 51
--423 50 -718 -3 -1080 -19 -124 -20 -152 -9 -245 26 -240 99 -493 312 -1085
-160 -444 180 -527 180 -740 0 -142 -25 -292 -65 -392 -13 -32 -47 -83 -82
--123 -143 -161 -637 -873 -791 -1141 -236 -412 -599 -1220 -857 -1909 -118
--316 -178 -507 -257 -815 -34 -132 -131 -485 -216 -785 -176 -620 -255 -931
--384 -1515 -50 -225 -113 -504 -141 -619 -55 -226 -57 -270 -18 -321 32 -39
-109 -73 217 -95 130 -27 198 -62 317 -166 120 -104 192 -154 294 -204 153 -76
-296 -104 392 -77 87 25 129 28 209 18 109 -14 173 -38 222 -83 103 -95 206
--144 371 -178 145 -31 183 -46 206 -86 12 -20 40 -43 71 -59 62 -31 188 -65
-242 -65 49 0 100 -26 169 -86 94 -81 175 -108 429 -138 269 -33 872 -46 1155
--26 106 8 149 15 178 31 49 25 212 38 477 39 295 0 486 25 521 66 8 9 19 37
-24 63 15 66 36 74 199 70 279 -7 282 -7 369 39 71 38 85 42 150 42 140 0 764
-49 892 70 68 11 88 22 122 66 15 20 47 45 70 55 52 22 233 66 443 109 85 17
-177 36 204 42 l48 11 -3 195 -4 195 152 43 c273 77 407 153 430 242 3 15 -3
-66 -16 122 -44 188 -81 405 -141 822 -74 512 -104 689 -129 776 -11 37 -29
-112 -42 167 -12 55 -37 144 -55 198 -27 76 -34 113 -34 171 0 50 -4 77 -14 85
--21 17 -61 114 -127 304 -229 657 -730 1836 -1075 2527 -95 190 -258 518 -362
-730 -104 212 -232 455 -283 540 -273 457 -362 627 -398 759 -28 101 -44 268
--36 371 18 241 78 436 266 863 176 399 225 633 304 1442 72 735 94 911 150
-1220 20 105 37 203 40 218 4 23 0 29 -22 38 -70 26 -215 52 -303 53 -87 1 -99
--1 -143 -27 -56 -33 -82 -66 -184 -239 -187 -313 -482 -638 -658 -723 -139
--67 -332 -116 -595 -152 -193 -26 -677 -26 -835 0 -289 48 -412 112 -618 327
--164 171 -282 343 -429 626 -44 84 -91 163 -105 174 -30 23 -56 24 -196 5z" />
-                    </g>
-                </svg>
 
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3 " data-content="content1">
-                <!-- SVG 1 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1280.000000pt" height="1220.000000pt"
-                    viewBox="0 0 1280.000000 1220.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1220.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M7756 12134 c-166 -160 -461 -310 -732 -375 -199 -47 -480 -63 -702
-               -38 -331 35 -706 155 -1071 341 -96 48 -179 88 -184 88 -6 0 -135 -48 -286
-               -106 -962 -369 -1421 -545 -1753 -673 l-376 -146 -1326 -1519 -1325 -1520 37
-               -43 c20 -24 444 -500 942 -1057 l905 -1015 136 0 136 -1 239 252 239 251 5
-               -3194 5 -3194 33 -85 c18 -47 37 -89 41 -93 4 -4 1650 -3 3657 4 l3648 12 108
-               75 108 76 0 290 c0 160 -5 707 -10 1216 -8 835 -15 1509 -39 4030 -4 432 -6
-               787 -5 789 2 2 123 -113 269 -255 147 -143 272 -260 278 -261 7 -2 58 7 115
-               20 l103 22 924 1035 924 1035 1 155 0 155 -1219 1325 -1219 1325 -928 419
-               c-511 231 -1081 489 -1267 573 -186 84 -339 153 -340 153 -1 -1 -33 -30 -71
-               -66z" />
-                    </g>
-                </svg>
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3" data-content="content2">
-                <!-- SVG 2 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="860.000000pt" height="1280.000000pt"
-                    viewBox="0 0 860.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M2557 12785 c-196 -27 -239 -44 -254 -103 -8 -32 17 -314 59 -657 51
--423 50 -718 -3 -1080 -19 -124 -20 -152 -9 -245 26 -240 99 -493 312 -1085
-160 -444 180 -527 180 -740 0 -142 -25 -292 -65 -392 -13 -32 -47 -83 -82
--123 -143 -161 -637 -873 -791 -1141 -236 -412 -599 -1220 -857 -1909 -118
--316 -178 -507 -257 -815 -34 -132 -131 -485 -216 -785 -176 -620 -255 -931
--384 -1515 -50 -225 -113 -504 -141 -619 -55 -226 -57 -270 -18 -321 32 -39
-109 -73 217 -95 130 -27 198 -62 317 -166 120 -104 192 -154 294 -204 153 -76
-296 -104 392 -77 87 25 129 28 209 18 109 -14 173 -38 222 -83 103 -95 206
--144 371 -178 145 -31 183 -46 206 -86 12 -20 40 -43 71 -59 62 -31 188 -65
-242 -65 49 0 100 -26 169 -86 94 -81 175 -108 429 -138 269 -33 872 -46 1155
--26 106 8 149 15 178 31 49 25 212 38 477 39 295 0 486 25 521 66 8 9 19 37
-24 63 15 66 36 74 199 70 279 -7 282 -7 369 39 71 38 85 42 150 42 140 0 764
-49 892 70 68 11 88 22 122 66 15 20 47 45 70 55 52 22 233 66 443 109 85 17
-177 36 204 42 l48 11 -3 195 -4 195 152 43 c273 77 407 153 430 242 3 15 -3
-66 -16 122 -44 188 -81 405 -141 822 -74 512 -104 689 -129 776 -11 37 -29
-112 -42 167 -12 55 -37 144 -55 198 -27 76 -34 113 -34 171 0 50 -4 77 -14 85
--21 17 -61 114 -127 304 -229 657 -730 1836 -1075 2527 -95 190 -258 518 -362
-730 -104 212 -232 455 -283 540 -273 457 -362 627 -398 759 -28 101 -44 268
--36 371 18 241 78 436 266 863 176 399 225 633 304 1442 72 735 94 911 150
-1220 20 105 37 203 40 218 4 23 0 29 -22 38 -70 26 -215 52 -303 53 -87 1 -99
--1 -143 -27 -56 -33 -82 -66 -184 -239 -187 -313 -482 -638 -658 -723 -139
--67 -332 -116 -595 -152 -193 -26 -677 -26 -835 0 -289 48 -412 112 -618 327
--164 171 -282 343 -429 626 -44 84 -91 163 -105 174 -30 23 -56 24 -196 5z" />
-                    </g>
-                </svg>
 
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3 " data-content="content1">
-                <!-- SVG 1 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1280.000000pt" height="1220.000000pt"
-                    viewBox="0 0 1280.000000 1220.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1220.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M7756 12134 c-166 -160 -461 -310 -732 -375 -199 -47 -480 -63 -702
-               -38 -331 35 -706 155 -1071 341 -96 48 -179 88 -184 88 -6 0 -135 -48 -286
-               -106 -962 -369 -1421 -545 -1753 -673 l-376 -146 -1326 -1519 -1325 -1520 37
-               -43 c20 -24 444 -500 942 -1057 l905 -1015 136 0 136 -1 239 252 239 251 5
-               -3194 5 -3194 33 -85 c18 -47 37 -89 41 -93 4 -4 1650 -3 3657 4 l3648 12 108
-               75 108 76 0 290 c0 160 -5 707 -10 1216 -8 835 -15 1509 -39 4030 -4 432 -6
-               787 -5 789 2 2 123 -113 269 -255 147 -143 272 -260 278 -261 7 -2 58 7 115
-               20 l103 22 924 1035 924 1035 1 155 0 155 -1219 1325 -1219 1325 -928 419
-               c-511 231 -1081 489 -1267 573 -186 84 -339 153 -340 153 -1 -1 -33 -30 -71
-               -66z" />
-                    </g>
-                </svg>
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3" data-content="content2">
-                <!-- SVG 2 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="860.000000pt" height="1280.000000pt"
-                    viewBox="0 0 860.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M2557 12785 c-196 -27 -239 -44 -254 -103 -8 -32 17 -314 59 -657 51
--423 50 -718 -3 -1080 -19 -124 -20 -152 -9 -245 26 -240 99 -493 312 -1085
-160 -444 180 -527 180 -740 0 -142 -25 -292 -65 -392 -13 -32 -47 -83 -82
--123 -143 -161 -637 -873 -791 -1141 -236 -412 -599 -1220 -857 -1909 -118
--316 -178 -507 -257 -815 -34 -132 -131 -485 -216 -785 -176 -620 -255 -931
--384 -1515 -50 -225 -113 -504 -141 -619 -55 -226 -57 -270 -18 -321 32 -39
-109 -73 217 -95 130 -27 198 -62 317 -166 120 -104 192 -154 294 -204 153 -76
-296 -104 392 -77 87 25 129 28 209 18 109 -14 173 -38 222 -83 103 -95 206
--144 371 -178 145 -31 183 -46 206 -86 12 -20 40 -43 71 -59 62 -31 188 -65
-242 -65 49 0 100 -26 169 -86 94 -81 175 -108 429 -138 269 -33 872 -46 1155
--26 106 8 149 15 178 31 49 25 212 38 477 39 295 0 486 25 521 66 8 9 19 37
-24 63 15 66 36 74 199 70 279 -7 282 -7 369 39 71 38 85 42 150 42 140 0 764
-49 892 70 68 11 88 22 122 66 15 20 47 45 70 55 52 22 233 66 443 109 85 17
-177 36 204 42 l48 11 -3 195 -4 195 152 43 c273 77 407 153 430 242 3 15 -3
-66 -16 122 -44 188 -81 405 -141 822 -74 512 -104 689 -129 776 -11 37 -29
-112 -42 167 -12 55 -37 144 -55 198 -27 76 -34 113 -34 171 0 50 -4 77 -14 85
--21 17 -61 114 -127 304 -229 657 -730 1836 -1075 2527 -95 190 -258 518 -362
-730 -104 212 -232 455 -283 540 -273 457 -362 627 -398 759 -28 101 -44 268
--36 371 18 241 78 436 266 863 176 399 225 633 304 1442 72 735 94 911 150
-1220 20 105 37 203 40 218 4 23 0 29 -22 38 -70 26 -215 52 -303 53 -87 1 -99
--1 -143 -27 -56 -33 -82 -66 -184 -239 -187 -313 -482 -638 -658 -723 -139
--67 -332 -116 -595 -152 -193 -26 -677 -26 -835 0 -289 48 -412 112 -618 327
--164 171 -282 343 -429 626 -44 84 -91 163 -105 174 -30 23 -56 24 -196 5z" />
-                    </g>
-                </svg>
-
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3 " data-content="content1">
-                <!-- SVG 1 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="1280.000000pt" height="1220.000000pt"
-                    viewBox="0 0 1280.000000 1220.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1220.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M7756 12134 c-166 -160 -461 -310 -732 -375 -199 -47 -480 -63 -702
-               -38 -331 35 -706 155 -1071 341 -96 48 -179 88 -184 88 -6 0 -135 -48 -286
-               -106 -962 -369 -1421 -545 -1753 -673 l-376 -146 -1326 -1519 -1325 -1520 37
-               -43 c20 -24 444 -500 942 -1057 l905 -1015 136 0 136 -1 239 252 239 251 5
-               -3194 5 -3194 33 -85 c18 -47 37 -89 41 -93 4 -4 1650 -3 3657 4 l3648 12 108
-               75 108 76 0 290 c0 160 -5 707 -10 1216 -8 835 -15 1509 -39 4030 -4 432 -6
-               787 -5 789 2 2 123 -113 269 -255 147 -143 272 -260 278 -261 7 -2 58 7 115
-               20 l103 22 924 1035 924 1035 1 155 0 155 -1219 1325 -1219 1325 -928 419
-               c-511 231 -1081 489 -1267 573 -186 84 -339 153 -340 153 -1 -1 -33 -30 -71
-               -66z" />
-                    </g>
-                </svg>
-            </div>
-            <div class="svg-item bg-light p-2 rounded-3" data-content="content2">
-                <!-- SVG 2 -->
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="860.000000pt" height="1280.000000pt"
-                    viewBox="0 0 860.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
-                    <metadata>
-                        Created by potrace 1.15, written by Peter Selinger 2001-2017
-                    </metadata>
-                    <g transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)" fill="#000000"
-                        stroke="none">
-                        <path d="M2557 12785 c-196 -27 -239 -44 -254 -103 -8 -32 17 -314 59 -657 51
--423 50 -718 -3 -1080 -19 -124 -20 -152 -9 -245 26 -240 99 -493 312 -1085
-160 -444 180 -527 180 -740 0 -142 -25 -292 -65 -392 -13 -32 -47 -83 -82
--123 -143 -161 -637 -873 -791 -1141 -236 -412 -599 -1220 -857 -1909 -118
--316 -178 -507 -257 -815 -34 -132 -131 -485 -216 -785 -176 -620 -255 -931
--384 -1515 -50 -225 -113 -504 -141 -619 -55 -226 -57 -270 -18 -321 32 -39
-109 -73 217 -95 130 -27 198 -62 317 -166 120 -104 192 -154 294 -204 153 -76
-296 -104 392 -77 87 25 129 28 209 18 109 -14 173 -38 222 -83 103 -95 206
--144 371 -178 145 -31 183 -46 206 -86 12 -20 40 -43 71 -59 62 -31 188 -65
-242 -65 49 0 100 -26 169 -86 94 -81 175 -108 429 -138 269 -33 872 -46 1155
--26 106 8 149 15 178 31 49 25 212 38 477 39 295 0 486 25 521 66 8 9 19 37
-24 63 15 66 36 74 199 70 279 -7 282 -7 369 39 71 38 85 42 150 42 140 0 764
-49 892 70 68 11 88 22 122 66 15 20 47 45 70 55 52 22 233 66 443 109 85 17
-177 36 204 42 l48 11 -3 195 -4 195 152 43 c273 77 407 153 430 242 3 15 -3
-66 -16 122 -44 188 -81 405 -141 822 -74 512 -104 689 -129 776 -11 37 -29
-112 -42 167 -12 55 -37 144 -55 198 -27 76 -34 113 -34 171 0 50 -4 77 -14 85
--21 17 -61 114 -127 304 -229 657 -730 1836 -1075 2527 -95 190 -258 518 -362
-730 -104 212 -232 455 -283 540 -273 457 -362 627 -398 759 -28 101 -44 268
--36 371 18 241 78 436 266 863 176 399 225 633 304 1442 72 735 94 911 150
-1220 20 105 37 203 40 218 4 23 0 29 -22 38 -70 26 -215 52 -303 53 -87 1 -99
--1 -143 -27 -56 -33 -82 -66 -184 -239 -187 -313 -482 -638 -658 -723 -139
--67 -332 -116 -595 -152 -193 -26 -677 -26 -835 0 -289 48 -412 112 -618 327
--164 171 -282 343 -429 626 -44 84 -91 163 -105 174 -30 23 -56 24 -196 5z" />
-                    </g>
-                </svg>
-
+            <div class="d-flex justify-content-center justify-content-lg-end">
+                <button id='print' class="btn btn-dark col-11 col-lg-3 me-lg-3"
+                    style="position: fixed; bottom: 20px;right:15px;z-index: 3343434;"> send print</button>
             </div>
 
         </div>
+        <div id="svg-modal" class="modal">
+            <span class="close">&times;</span>
+
+            <div id='modal-content' class="modal-content">
+                <div id="container2">
 
 
-        <div class="d-flex justify-content-center justify-content-lg-end">
-            <button class="btn btn-dark col-11 col-lg-3 me-lg-5 me-0 "
-                style="position: fixed; bottom: 20px;z-index: 3343434;"> send print</button>
+                </div>
+                <div id="svg-container" class="d-flex justify-content-center align-items-center w-100 vh-100">
+
+                </div>
+            </div>
+
+            <form action="{{ route('upload.desgine') }}" method="POST">
+                @csrf
+            </form>
+
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const chooseImageBtn = document.getElementById('chooseImageBtn');
+                const imgElement = document.getElementById('image');
+                let imgX = 0;
+                let imgY = 0;
 
-    </div>
-    <div id="svg-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" style="position: absolute;z-index: 56767867867867867867;">&times;</span>
-            <div id="svg-container" class="d-flex justify-content-center"></div>
-        </div>
-    </div>
+                chooseImageBtn.addEventListener('click', function() {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = function(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                imgElement.src = e.target.result;
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const chooseImageBtn = document.getElementById('chooseImageBtn');
-            chooseImageBtn.addEventListener('click', function() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                input.onchange = function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const img = document.getElementById('image');
-                            img.src = e.target.result;
-
-                            interact('#container img')
-                                .draggable({
-                                    listeners: {
-                                        move(event) {
-                                            const target = event.target;
-                                            const x = (parseFloat(target.getAttribute(
-                                                'data-x')) || 0) + event.dx;
-                                            const y = (parseFloat(target.getAttribute(
-                                                'data-y')) || 0) + event.dy;
-
-                                            target.style.transform =
-                                                `translate(${x}px, ${y}px)`;
-                                            target.setAttribute('data-x', x);
-                                            target.setAttribute('data-y', y);
-                                        },
-                                    },
-                                    touchAction: 'none',
-                                    inertia: true,
-                                    modifiers: [
-                                        interact.modifiers.restrictRect({
-                                            restriction: 'parent',
-                                            endOnly: true
-                                        })
-                                    ],
-                                })
-                                .resizable({
-                                    edges: {
-                                        left: true,
-                                        right: true,
-                                        bottom: true,
-                                        top: true
-                                    },
-                                    listeners: {
-                                        move(event) {
-                                            const target = event.target;
-                                            let {
-                                                x,
-                                                y
-                                            } = target.dataset;
-                                            x = (parseFloat(x) || 0) + event.deltaRect.left;
-                                            y = (parseFloat(y) || 0) + event.deltaRect.top;
-
-                                            target.style.width = `${event.rect.width}px`;
-                                            target.style.height = `${event.rect.height}px`;
-
-                                            target.dataset.x = x;
-                                            target.dataset.y = y;
-                                            target.style.transform =
-                                                `translate(${x}px, ${y}px)`;
-                                        },
-                                    },
-                                    modifiers: [
-                                        interact.modifiers.restrictSize({
-                                            min: {
-                                                width: 50,
-                                                height: 50
+                                interact('#image')
+                                    .draggable({
+                                        listeners: {
+                                            move(event) {
+                                                const target = event.target;
+                                                imgX = (parseFloat(target.getAttribute('data-x')) ||
+                                                    0) + event.dx;
+                                                imgY = (parseFloat(target.getAttribute('data-y')) ||
+                                                    0) + event.dy;
+                                                target.style.transform =
+                                                    `translate(${imgX}px, ${imgY }px)`;
+                                                target.setAttribute('data-x', imgX);
+                                                target.setAttribute('data-y', imgY);
+                                                console.log(imgY);
                                             },
-                                        }),
-                                    ],
-                                });
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                };
-                input.click();
-            });
+                                        },
+                                        inertia: true,
+                                        modifiers: [
+                                            interact.modifiers.restrictRect({
+                                                restriction: 'parent',
+                                                endOnly: true
+                                            })
+                                        ],
+                                        touchAction: 'none',
+                                    })
+                                    .resizable({
+                                        edges: {
+                                            left: true,
+                                            right: true,
+                                            bottom: true,
+                                            top: true
+                                        },
+                                        listeners: {
+                                            move(event) {
+                                                const target = event.target;
+                                                let {
+                                                    x,
+                                                    y
+                                                } = target.dataset;
+                                                x = (parseFloat(x) || 0) + event.deltaRect.left;
+                                                y = (parseFloat(y) || 0) + event.deltaRect.top;
 
-            const svgItems = document.querySelectorAll(".svg-item");
-            const contentDisplay = document.getElementById("content-display");
-            const colorPicker = document.getElementById("color-picker");
-            const colorSwatches = document.querySelectorAll(".color-swatch");
-            const fullScreenButton = document.getElementById("full-screen-button");
-            const modal = document.getElementById("svg-modal");
-            const closeModal = document.querySelector(".close");
-            const svgContainer = document.getElementById("svg-container");
-            let currentSvg = null;
+                                                target.style.width = `${event.rect.width}px`;
+                                                target.style.height = `${event.rect.height}px`;
 
-            svgItems.forEach(item => {
-                item.addEventListener("click", () => {
-                    const svgClone = item.querySelector("svg").cloneNode(true);
-                    svgClone.classList.remove("small-svg");
-                    svgClone.classList.add("large-svg");
-                    if (currentSvg) {
-                        contentDisplay.removeChild(currentSvg);
-                    }
-                    contentDisplay.appendChild(svgClone);
-                    currentSvg = svgClone;
-
-                    moveFillAttribute(currentSvg);
+                                                target.dataset.x = x;
+                                                target.dataset.y = y;
+                                                target.style.transform =
+                                                    `translate(${x}px, ${y}px)`;
+                                            },
+                                        },
+                                        modifiers: [
+                                            interact.modifiers.restrictSize({
+                                                min: {
+                                                    width: 50,
+                                                    height: 50
+                                                },
+                                            }),
+                                        ],
+                                    });
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    };
+                    input.click();
                 });
-            });
 
-            colorPicker.addEventListener("input", (event) => {
-                if (currentSvg) {
-                    const selectedColor = event.target.value;
-                    currentSvg.setAttribute("fill", selectedColor);
-                }
-            });
+                const svgItems = document.querySelectorAll(".svg-item");
+                const contentDisplay = document.getElementById("content-display");
+                const colorPicker = document.getElementById("color-picker");
+                const colorSwatches = document.querySelectorAll(".color-swatch");
+                const fullScreenButton = document.getElementById("full-screen-button");
+                const print = document.getElementById("print");
+                const modal = document.getElementById("svg-modal");
+                const closeModal = document.querySelector(".close");
+                const svgContainer = document.getElementById("svg-container");
+                const svgContainer2 = document.getElementById("container2");
+                    const designNameElement = document.getElementById("design-name"); // العنصر الذي يحتوي على اسم التصميم
 
-            colorSwatches.forEach(swatch => {
-                swatch.addEventListener("click", () => {
+                let currentSvg = null;
+
+                svgItems.forEach(item => {
+                    item.addEventListener("click", (e) => {
+                        const svgClone = item.querySelector("svg").cloneNode(true);
+                        svgClone.classList.add("large-svg");
+
+                        if (currentSvg) {
+                            contentDisplay.removeChild(currentSvg);
+                        }
+                        contentDisplay.appendChild(svgClone);
+                        currentSvg = svgClone;
+                         const designName = item.getAttribute('data-name');
+                        designNameElement.textContent = designName;
+
+                        moveFillAttribute(svgClone);
+                    });
+                });
+
+                colorPicker.addEventListener("input", (event) => {
                     if (currentSvg) {
-                        const selectedColor = swatch.style.backgroundColor;
+                        const selectedColor = event.target.value;
                         currentSvg.setAttribute("fill", selectedColor);
                     }
                 });
-            });
 
-            fullScreenButton.addEventListener("click", () => {
-                if (currentSvg) {
-                    const svgClone = currentSvg.cloneNode(true);
-                    svgClone.classList.remove("large-svg");
-                    svgClone.style.width = "450px";
-                    svgClone.style.height = "450px";
-                    svgContainer.innerHTML = "";
-                    svgContainer.appendChild(svgClone);
-                    modal.style.display = "flex";
-                    modal.style.justifyContent = "center";
-                    modal.style.alignItems = "center";
-                }
-            });
+                colorSwatches.forEach(swatch => {
+                    swatch.addEventListener("click", () => {
+                        if (currentSvg) {
+                            const selectedColor = swatch.style.backgroundColor;
+                            currentSvg.setAttribute("fill", selectedColor);
+                        }
+                    });
+                });
 
-            closeModal.addEventListener("click", () => {
-                modal.style.display = "none";
-            });
+                fullScreenButton.addEventListener("click", () => {
+                    if (currentSvg && imgElement.src) {
+                        const svgClone = currentSvg.cloneNode(true);
+                        // svgClone.classList.remove("large-svg");
+                        svgClone.style.width = `${currentSvg.clientWidth}px`;
+                        svgClone.style.height = `${currentSvg.clientHeight}px`;
 
-            window.addEventListener("click", (event) => {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            });
+                        const imgClone = imgElement.cloneNode(true);
 
-            function moveFillAttribute(svg) {
-                const gElements = svg.querySelectorAll('g[fill]');
-                gElements.forEach(g => {
-                    const fillValue = g.getAttribute('fill');
-                    if (fillValue) {
-                        svg.setAttribute('fill', fillValue);
-                        g.removeAttribute('fill');
+                        imgClone.style.width = `${imgElement.clientWidth}px`;
+                        imgClone.style.height = `${imgElement.clientHeight}px`;
+                        imgClone.style.transform = `translate(${imgX}px, ${imgY }px)`;
+
+                        imgClone.setAttribute('data-x', imgX);
+                        // imgClone.setAttribute('data-y', imgY - 50);
+
+                        svgContainer.innerHTML = "";
+                        svgContainer2.innerHTML = "";
+                        svgContainer2.appendChild(imgClone);
+                        svgContainer.appendChild(svgClone);
+
+                        modal.style.display = "flex";
+                        modal.style.justifyContent = "center";
+                        modal.style.alignItems = "center";
+                        svgContainer.style.transform = `translate(0px, -10.1%)`;
+                        console.log("IMGY", imgY);
                     }
                 });
-            }
-        });
-    </script>
+                print.addEventListener("click", () => {
+                    if (currentSvg && imgElement.src) {
+                        const svgClone = currentSvg.cloneNode(true);
+                        // svgClone.classList.remove("large-svg");
+                        svgClone.style.width = `${currentSvg.clientWidth}px`;
+                        svgClone.style.height = `${currentSvg.clientHeight}px`;
+
+                        const imgClone = imgElement.cloneNode(true);
+
+                        imgClone.style.width = `${imgElement.clientWidth}px`;
+                        imgClone.style.height = `${imgElement.clientHeight}px`;
+                        imgClone.style.transform = `translate(${imgX}px, ${imgY }px)`;
+
+                        imgClone.setAttribute('data-x', imgX);
+                        // imgClone.setAttribute('data-y', imgY - 50);
+
+                        svgContainer.innerHTML = "";
+                        svgContainer2.innerHTML = "";
+                        svgContainer2.appendChild(imgClone);
+                        svgContainer.appendChild(svgClone);
+
+                        modal.style.display = "flex";
+                        modal.style.justifyContent = "center";
+                        modal.style.alignItems = "center";
+                        svgContainer.style.transform = `translate(0px, -10.1%)`;
+                        var captureElement = document.getElementById('modal-content');
+                        var form = document.getElementById('form');
+                        var ImgData = "";
+                        html2canvas(captureElement).then(canvas => {
+                            // Create an anchor element to initiate download
+                            var link = document.createElement('a');
+                            link.download = 'capture.png';
+                            link.href = canvas.toDataURL('image/png');
+                            link.click();
+
+                            // Append the anchor element to the document body
+                            document.body.appendChild(link);
+
+                            // Create a FormData object
+                            var formData = new FormData();
+                            // Append the canvas data URL to the FormData object
+                            formData.append('image', canvas.toDataURL('image/png'));
+
+                            // Create a form element
+                            var form = document.createElement('form');
+                            form.method = 'POST';
+                            form.action = '{{ route('upload.desgine') }}';
+
+                            // Append CSRF token input field to the form
+                            var csrfTokenInput = document.createElement('input');
+                            csrfTokenInput.type = 'hidden';
+                            csrfTokenInput.name = '_token';
+                            csrfTokenInput.value = '{{ csrf_token() }}';
+                            form.appendChild(csrfTokenInput);
+
+                            // Append the FormData input field to the form
+                            var formDataInput = document.createElement('input');
+                            formDataInput.type = 'hidden';
+                            formDataInput.name = 'image';
+                            formDataInput.value = canvas.toDataURL('image/png');
+                            form.appendChild(formDataInput);
+
+                            // Append the form to the document body
+                            document.body.appendChild(form);
+
+                            // Submit the form
+                            form.submit();
+
+                            // Clean up: remove the anchor and form elements from the DOM
+                            document.body.removeChild(link);
+                            document.body.removeChild(form);
+                        });
+                    }
+                });
+
+                closeModal.addEventListener("click", () => {
+                    modal.style.display = "none";
+                });
+
+                window.addEventListener("click", (event) => {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                });
+
+                function moveFillAttribute(svg) {
+                    const gElements = svg.querySelectorAll('g[fill]');
+                    gElements.forEach(g => {
+                        const fillValue = g.getAttribute('fill');
+                        if (fillValue) {
+                            svg.setAttribute('fill', fillValue);
+                            g.removeAttribute('fill');
+                        }
+                    });
+                }
+            });
+        </script>
+
+
+
+
 </body>
 
 </html>

@@ -6,16 +6,17 @@
                     <div class="transparent-header_nav position-relative">
                         <div class="header-logo_area">
                             <a href="/">
-                                <img src="/assets/images/logo.png" style="width: 100px;" alt="Header Logo">
+                                <img src="{{ asset('assets/images/logo.png') }}" style="width: 100px;" alt="Header Logo">
                             </a>
                         </div>
                         <div class="main-menu_area d-none d-lg-block">
                             <nav class="main-nav d-flex justify-content-center">
                                 <ul>
-                                    <li class="dropdown-holder"><a href="/">Home </a>
+                                    <li class="dropdown-holder"><a href="/">{{ __('message.Home') }}</a>
 
                                     </li>
-                                    <li class="megamenu-holder position-static"><a href="{{ route('ShopLeft') }}">Shop
+                                    <li class="megamenu-holder position-static"><a
+                                            href="{{ route('ShopLeft') }}">{{ __('message.Shop') }}
                                             <i class="ion-chevron-down"></i></a>
                                         <ul class="kenne-megamenu">
                                             @php
@@ -35,17 +36,19 @@
                                             @endforeach
                                         </ul>
                                     </li>
-                                    <li><a href="javascript:void(0)">Pages <i class="ion-chevron-down"></i></a>
+                                    <li><a href="javascript:void(0)">{{ __('message.Pages') }} <i
+                                                class="ion-chevron-down"></i></a>
                                         <ul class="kenne-dropdown">
 
-                                            <li><a href="{{ route('profile') }}">profile</a></li>
-                                            <li><a href="{{ route('wishlist') }}">wishlist</a></li>
-                                            <li><a href="{{ route('wallet') }}">Wallet</a></li>
+                                            <li><a href="{{ route('profile') }}">{{ __('message.Profile') }}</a></li>
+                                            <li><a href="{{ route('wishlist') }}">{{ __('message.Wishlist') }}</a>
+                                            </li>
+                                            <li><a href="{{ route('wallet') }}">{{ __('message.Wallet') }}</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{ route('design') }}">design</a></li>
+                                    <li><a href="{{ route('design') }}">{{ __('message.Desgine') }}</a></li>
 
-                                    <li><a href="{{ route('auction') }}">auctions</a></li>
+                                    <li><a href="{{ route('auction') }}">{{ __('message.AUCTIONS') }}</a></li>
 
                                 </ul>
                             </nav>
@@ -105,11 +108,11 @@
                                 <div class="main-menu_area">
                                     <nav class="main-nav d-flex justify-content-center">
                                         <ul>
-                                            <li class="dropdown-holder"><a href="/">Home</a>
+                                            <li class="dropdown-holder"><a href="/">{{ __('message.Home') }}</a>
 
                                             </li>
                                             <li class="megamenu-holder position-static"><a
-                                                    href="shop-left-sidebar.html">Shop <i
+                                                    href="shop-left-sidebar.html">{{ __('message.Shop') }} <i
                                                         class="ion-chevron-down"></i></a>
                                                 <ul class="kenne-megamenu">
                                                     @php
@@ -130,18 +133,22 @@
                                                     @endforeach
                                                 </ul>
                                             </li>
-                                            <li><a href="javascript:void(0)">Pages <i class="ion-chevron-down"></i></a>
+                                            <li><a href="javascript:void(0)">{{ __('message.Pages') }} <i
+                                                        class="ion-chevron-down"></i></a>
                                                 <ul class="kenne-dropdown">
-                                                    <li><a href="{{ route('profile') }}">profile</a></li>
-                                                    <li><a href="">wishlist</a></li>
-                                                    <li><a href="{{ route('wallet') }}">Wallet</a></li>
+                                                    <li><a
+                                                            href="{{ route('profile') }}">{{ __('message.Profile') }}</a>
+                                                    </li>
+                                                    <li><a href="">{{ __('message.Wishlist') }}</a></li>
+                                                    <li><a href="{{ route('wallet') }}">{{ __('message.Wallet') }}</a>
+                                                    </li>
 
 
                                                 </ul>
                                             </li>
-                                            <li><a href="{{ route('design') }}">design</a></li>
+                                            <li><a href="{{ route('design') }}">{{ __('message.Desgine') }}</a></li>
 
-                                            <li><a href="{{ route('auction') }}">auctions</a></li>
+                                            <li><a href="{{ route('auction') }}">{{ __('message.AUCTIONS') }}</a></li>
 
                                         </ul>
                                     </nav>
@@ -199,11 +206,11 @@
                     @if (isset(auth()->user()->carts))
                         @foreach (auth()->user()->carts as $cart)
                             <li class="minicart-product">
-                                <a class="product-item_remove" href="{{ route('cart.destroy' 
-                                , ['id'=> $cart->basket_id]) }}"><i
+                                <a class="product-item_remove"
+                                    href="{{ route('cart.destroy', ['id' => $cart->basket_id]) }}"><i
                                         class="ion-android-close"></i></a>
                                 <div class="product-item_img">
-                                    <img src="{{ asset('allImages/' . $cart->product->cover[0]) }}" >
+                                    <img src="{{ asset('allImages/' . $cart->product->cover[0]) }}">
                                 </div>
                                 <div class="product-item_content">
                                     <a class="product-item_title"
@@ -239,12 +246,12 @@
                 <nav class="offcanvas-navigation">
                     <ul class="mobile-menu">
                         <li class="menu-item-has-children active"><a href="/"><span
-                                    class="mm-text">Home</span></a>
+                                    class="mm-text">{{ __('message.Home') }}</span></a>
 
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">
-                                <span class="mm-text">Shop</span>
+                                <span class="mm-text">{{ __('message.Shop') }}</span>
                             </a>
                             <ul class="sub-menu">
                                 @foreach ($categories as $category)
@@ -267,7 +274,7 @@
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">
-                                <span class="mm-text">Pages</span>
+                                <span class="mm-text">{{ __('message.Pages') }}</span>
                             </a>
 
                             <ul class="sub-menu">
@@ -275,7 +282,7 @@
 
                                 <li>
                                     <a href="my-account.html">
-                                        <span class="mm-text">My Account</span>
+                                        <span class="mm-text">{{ __('message.MY_ACCOUNT') }}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -307,10 +314,10 @@
                                 </li>
                             </ul>
                             <a href="{{ route('design') }}">
-                                <span class="mm-text">design</span>
+                                <span class="mm-text">{{ __('message.Desgine') }}</span>
                             </a>
                             <a href="{{ route('auction') }}">
-                                <span class="mm-text">auctions</span>
+                                <span class="mm-text">{{ __('message.AUCTIONS') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -344,18 +351,16 @@
                             </ul>
                         </li>
                         <li class="menu-item-has-children"><a href="#"><span
-                                    class="mm-text">Language</span></a>
+                                    class="mm-text">{{ __('message.LANGUAGE') }}</span></a>
                             <ul class="sub-menu">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="mm-text">English</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <span class="mm-text">ar</span>
-                                    </a>
-                                </li>
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li>
+                                        <a rel="alternate" hreflang="{{ $localeCode }}"
+                                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            {{ $properties['native'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
                     </ul>
@@ -373,20 +378,26 @@
             </div>
 
             <div class="offcanvas-component">
-                <span class="offcanvas-component_title">Language</span>
+                <span class="offcanvas-component_title">{{ __('message.LANGUAGE') }}</span>
                 <ul class="offcanvas-component_menu">
-                    <li class="active"><a href="javascript:void(0)">English</a></li>
-                    <li><a href="javascript:void(0)">ar</a></li>
+                    @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li>
+                            <a rel="alternate" hreflang="{{ $localeCode }}"
+                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="offcanvas-component">
-                <span class="offcanvas-component_title">My Account</span>
+                <span class="offcanvas-component_title">{{ __('message.MY_ACCOUNT') }}</span>
                 <ul class="offcanvas-component_menu">
                     @if (auth()->check())
                         <li><a href="{{ route('profile') }}">Profile</a></li>
                     @else
-                        <li><a href="{{ route('login-register') }}">Register</a></li>
-                        <li><a href="{{ route('login-register') }}">Login</a></li>
+                        <li><a href="{{ route('login-register') }}">{{ __('message.Register') }}</a></li>
+                        <li><a href="{{ route('login-register') }}">{{ __('message.Login') }}</a></li>
                     @endif
 
                 </ul>

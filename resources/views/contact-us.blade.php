@@ -6,35 +6,36 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Contact || Kenne</title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
+    <meta name="description"
+        content="Kenne is a stunning html template for an expansion eCommerce site that suitable for any kind of fashion store. It will make your online store look more impressive and attractive to viewers. ">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href={{ asset('assets/images/favicon.png') }}>
 
     <!-- CSS
-	============================================ -->
+ ============================================ -->
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/bootstrap.min.css') }}>
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/font-awesome.min.css') }}>
     <!-- Fontawesome Star -->
-    <link rel="stylesheet" href="assets/css/fontawesome-stars.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/fontawesome-stars.min.css') }}>
     <!-- Ion Icon -->
-    <link rel="stylesheet" href="assets/css/ion-fonts.css">
+    <link rel="stylesheet" href={{ asset('assets/css/ion-fonts.css') }}>
     <!-- Slick CSS -->
-    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href={{ asset('assets/css/slick.css') }}>
     <!-- Animation -->
-    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/animate.min.css') }}>
     <!-- jQuery Ui -->
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href={{ asset('assets/css/jquery-ui.min.css') }}>
     <!-- Nice Select -->
-    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href={{ asset('assets/css/nice-select.css') }}>
     <!-- Timecircles -->
-    <link rel="stylesheet" href="assets/css/timecircles.css">
+    <link rel="stylesheet" href={{ asset('assets/css/timecircles.css') }}>
 
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href={{ asset('assets/css/style.css') }}>
 
 </head>
 
@@ -43,7 +44,7 @@
     <div class="main-wrapper">
 
         <!-- Begin Loading Area -->
-<!--         <div class="loading">
+        <!--         <div class="loading">
             <div class="text-center middle">
                 <span class="loader">
             <span class="loader-inner"></span>
@@ -77,7 +78,8 @@
                         <div class="contact-page-side-content">
                             <h3 class="contact-page-title">Contact Us</h3>
                             <p class="contact-page-message">Claritas est etiam processus dynamicus, qui sequitur
-                                mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum
+                                mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc
+                                putamus parum
                                 claram anteposuerit litterarum formas human.</p>
                             <div class="single-contact-block">
                                 <h4><i class="fa fa-fax"></i> Address</h4>
@@ -99,7 +101,8 @@
                         <div class="contact-form-content">
                             <h3 class="contact-page-title">Tell Us Your Message</h3>
                             <div class="contact-form">
-                                <form id="contact-form" action="https://whizthemes.com/mail-php/mamunur/kenne/kenne.php">
+                                <form id="contact-form"
+                                    action="https://whizthemes.com/mail-php/mamunur/kenne/kenne.php">
                                     <div class="form-group">
                                         <label>Your Name <span class="required">*</span></label>
                                         <input type="text" name="con_name" id="con_name" required>
@@ -117,7 +120,8 @@
                                         <textarea name="con_message" id="con_message"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" value="submit" id="submit" class="kenne-contact-form_btn" name="submit">send</button>
+                                        <button type="submit" value="submit" id="submit"
+                                            class="kenne-contact-form_btn" name="submit">send</button>
                                     </div>
                                 </form>
                             </div>
@@ -135,14 +139,16 @@
                 <div class="brand-nav border-top ">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="kenne-element-carousel brand-slider slider-nav" data-slick-options='{
+                            <div class="kenne-element-carousel brand-slider slider-nav"
+                                data-slick-options='{
                                 "slidesToShow": 6,
                                 "slidesToScroll": 1,
                                 "infinite": false,
                                 "arrows": false,
                                 "dots": false,
                                 "spaceBetween": 30
-                                }' data-slick-responsive='[
+                                }'
+                                data-slick-responsive='[
                                 {"breakpoint":992, "settings": {
                                 "slidesToShow": 4
                                 }},
@@ -156,42 +162,42 @@
 
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/1.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/1.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/2.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/2.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/3.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/3.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/4.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/4.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/5.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/5.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/6.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/6.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/1.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/1.png') }} alt="Brand Images">
                                     </a>
                                 </div>
                                 <div class="brand-item">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/brand/2.png" alt="Brand Images">
+                                        <img src={{ asset('assets/images/brand/2.png') }} alt="Brand Images">
                                     </a>
                                 </div>
 
@@ -212,17 +218,22 @@
                             <div class="newsletter-area">
                                 <div class="newsletter-logo">
                                     <a href="javascript:void(0)">
-                                        <img src="assets/images/footer/logo/1.png" alt="Logo">
+                                        <img src={{ asset('assets/images/footer/logo/1.png') }} alt="Logo">
                                     </a>
                                 </div>
                                 <p class="short-desc">Subscribe to our newsleter, Enter your emil address</p>
                                 <div class="newsletter-form_wrap">
-                                    <form action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="newsletters-form validate" target="_blank" novalidate>
+                                    <form
+                                        action="https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef"
+                                        method="post" id="mc-embedded-subscribe-form"
+                                        name="mc-embedded-subscribe-form" class="newsletters-form validate"
+                                        target="_blank" novalidate>
                                         <div id="mc_embed_signup_scroll">
                                             <div id="mc-form" class="mc-form subscribe-form">
-                                                <input id="mc-email" class="newsletter-input" type="email" autocomplete="off" placeholder="Enter email address" />
+                                                <input id="mc-email" class="newsletter-input" type="email"
+                                                    autocomplete="off" placeholder="Enter email address" />
                                                 <button class="newsletter-btn" id="mc-submit"><i
-                                                class="ion-android-mail"></i></button>
+                                                        class="ion-android-mail"></i></button>
                                             </div>
                                         </div>
                                     </form>
@@ -280,12 +291,14 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="copyright">
-                                <span>Copyright &copy; 2023 <a href="javascript:void(0)">Kenne.</a> All rights reserved.</span>
+                                <span>Copyright &copy; 2023 <a href="javascript:void(0)">Kenne.</a> All rights
+                                    reserved.</span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="payment">
-                                <img src="assets/images/footer/payment/1.png" alt="Kenne's Payment Method">
+                                <img src={{ asset('assets/images/footer/payment/1.png') }}
+                                    alt="Kenne's Payment Method">
                             </div>
                         </div>
                     </div>
@@ -303,39 +316,41 @@
 ============================================ -->
 
     <!-- jQuery JS -->
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
+    <script src={{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}></script>
+    <script src={{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}></script>
     <!-- Modernizer JS -->
-    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src={{ asset('assets/js/vendor/modernizr-3.11.2.min.js') }}></script>
     <!-- Bootstrap JS -->
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src={{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}></script>
 
     <!-- Slick Slider JS -->
-    <script src="assets/js/plugins/slick.min.js"></script>
+    <script src={{ asset('assets/js/plugins/slick.min.js') }}></script>
     <!-- Barrating JS -->
-    <script src="assets/js/plugins/jquery.barrating.min.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.barrating.min.js') }}></script>
     <!-- Counterup JS -->
-    <script src="assets/js/plugins/jquery.counterup.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.counterup.js') }}></script>
     <!-- Nice Select JS -->
-    <script src="assets/js/plugins/jquery.nice-select.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.nice-select.js') }}></script>
     <!-- Sticky Sidebar JS -->
-    <script src="assets/js/plugins/jquery.sticky-sidebar.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.sticky-sidebar.js') }}></script>
     <!-- Jquery-ui JS -->
-    <script src="assets/js/plugins/jquery-ui.min.js"></script>
-    <script src="assets/js/plugins/jquery.ui.touch-punch.min.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery-ui.min.js') }}></script>
+    <script src={{ asset('assets/js/plugins/jquery.ui.touch-punch.min.js') }}></script>
     <!-- Theia Sticky Sidebar JS -->
-    <script src="assets/js/plugins/theia-sticky-sidebar.min.js"></script>
+    <script src={{ asset('assets/js/plugins/theia-sticky-sidebar.min.js') }}></script>
     <!-- Waypoints JS -->
-    <script src="assets/js/plugins/waypoints.min.js"></script>
+    <script src={{ asset('assets/js/plugins/waypoints.min.js') }}></script>
     <!-- jQuery Zoom JS -->
-    <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+    <script src={{ asset('assets/js/plugins/jquery.zoom.min.js') }}></script>
     <!-- Timecircles JS -->
-    <script src="assets/js/plugins/timecircles.js"></script>
+    <script src={{ asset('assets/js/plugins/timecircles.js') }}></script>
 
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+    <script src={{ asset('assets/js/main.js') }}></script>
     <!-- Begin Kenne's Google Map Area -->
-    <script src="https://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;v=3.22&amp;key=AIzaSyChs2QWiAhnzz0a4OEhzqCXwx_qA9ST_lE"></script>
+    <script
+        src="https://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry&amp;v=3.22&amp;key=AIzaSyChs2QWiAhnzz0a4OEhzqCXwx_qA9ST_lE">
+    </script>
 
     <script>
         // When the window has finished loading create our google map below
